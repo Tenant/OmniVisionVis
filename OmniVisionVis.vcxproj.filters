@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="GPS">
+      <UniqueIdentifier>{e0ba2951-4a26-4fce-93d3-ab328ace203b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Velodyne">
+      <UniqueIdentifier>{b663d97a-0727-4429-9bfe-374b2392b255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transform_fang">
+      <UniqueIdentifier>{47350d21-9b7e-46be-bf81-271feedff14a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ladybug">
+      <UniqueIdentifier>{fe6f8196-f2b2-4ee4-a661-ce9faf94c778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ladybug\FromImages">
+      <UniqueIdentifier>{73387b5e-3bea-4c57-a226-87e0df767c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ladybug\FromPGR">
+      <UniqueIdentifier>{c71029d9-2847-4f91-beb2-acd5acce911e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ladybug\FromVideo">
+      <UniqueIdentifier>{9b0f84a8-8fef-4b6f-9d08-620695bc8ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Flea2">
+      <UniqueIdentifier>{290befc7-5ff6-4c76-9422-43f282a651b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transform_fang\Flea2">
+      <UniqueIdentifier>{19ee8c3b-49d6-4173-9ca3-26c33cdf8502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LMS">
+      <UniqueIdentifier>{9afe51fe-48ae-42ef-ac9e-66e8b16573de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sensors">
+      <UniqueIdentifier>{f731de2a-8e45-4615-b912-3b0a794f1b3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Label">
+      <UniqueIdentifier>{dc9e5429-9c17-452f-8b39-9aac67b2da4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Label\Tracker">
+      <UniqueIdentifier>{b09bb7ba-98a5-4164-933d-fd1f84f22964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Label\Labeler">
+      <UniqueIdentifier>{4ebaf063-d3fd-4ae1-993a-99c7fa433298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Label\Recorder">
+      <UniqueIdentifier>{0973b955-136d-4b4c-9bcd-d465c4ad3fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transform_fang\GPS">
+      <UniqueIdentifier>{6b6a5d7a-8692-41e6-9d6b-3eab69fcba01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Label\GTClassSizeInfo">
+      <UniqueIdentifier>{206e26cd-ca64-4d4e-a360-d42dffb9bf60}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\velodynecalibinterface.cpp">
+      <Filter>Velodyne</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\velodynedatainterface.cpp">
+      <Filter>Velodyne</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform_fang\transform_fang.cpp">
+      <Filter>Transform_fang</Filter>
+    </ClCompile>
+    <ClCompile Include="misc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LadybugImages\LadybugImages.cpp">
+      <Filter>Ladybug\FromImages</Filter>
+    </ClCompile>
+    <ClCompile Include="LadybugVideo\LadybugVideo.cpp">
+      <Filter>Ladybug\FromVideo</Filter>
+    </ClCompile>
+    <ClCompile Include="LadybugPGR\LoadLadyBugPgr.cpp">
+      <Filter>Ladybug\FromPGR</Filter>
+    </ClCompile>
+    <ClCompile Include="Flea2\flea2reader.cpp">
+      <Filter>Flea2</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform_fang\Flea2\CAL_TRAN.cpp">
+      <Filter>Transform_fang\Flea2</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform_fang\Flea2\MyCalib.cpp">
+      <Filter>Transform_fang\Flea2</Filter>
+    </ClCompile>
+    <ClCompile Include="GPS\gps.cpp">
+      <Filter>GPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensors\sensor.cpp">
+      <Filter>Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="OmniVision.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LMS\urg.cpp">
+      <Filter>LMS</Filter>
+    </ClCompile>
+    <ClCompile Include="Label\Labeler\Labeler.cpp">
+      <Filter>Label\Labeler</Filter>
+    </ClCompile>
+    <ClCompile Include="Label\Tracker_KCF\fhog.cpp">
+      <Filter>Label\Tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="Label\Tracker_KCF\kcftracker.cpp">
+      <Filter>Label\Tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="Label\Recorder\Recorder.cpp">
+      <Filter>Label\Recorder</Filter>
+    </ClCompile>
+    <ClCompile Include="GTLabel.cpp">
+      <Filter>Label</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform_fang\GPS\coordinateconvertion.cpp">
+      <Filter>Transform_fang\GPS</Filter>
+    </ClCompile>
+    <ClCompile Include="getVeloPosFromImage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Label\GTClassSizeInfo\GTClassSizeInfo.cpp">
+      <Filter>Label\GTClassSizeInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="imageShifter.cpp">
+      <Filter>Ladybug</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\velodynecalibinterface.h">
+      <Filter>Velodyne</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\velodynedatainterface.h">
+      <Filter>Velodyne</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform_fang\transform_fang.h">
+      <Filter>Transform_fang</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LadybugImages\LadybugImages.h">
+      <Filter>Ladybug\FromImages</Filter>
+    </ClInclude>
+    <ClInclude Include="LadybugPGR\LoadLadyBugPgr.h">
+      <Filter>Ladybug\FromPGR</Filter>
+    </ClInclude>
+    <ClInclude Include="LadybugVideo\LadybugVideo.h">
+      <Filter>Ladybug\FromVideo</Filter>
+    </ClInclude>
+    <ClInclude Include="Flea2\flea2reader.h">
+      <Filter>Flea2</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform_fang\Flea2\CAL_MAIN.H">
+      <Filter>Transform_fang\Flea2</Filter>
+    </ClInclude>
+    <ClInclude Include="define_zhao.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GPS\gps.h">
+      <Filter>GPS</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensors\sensor.h">
+      <Filter>Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="OmniVision.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LMS\urg.h">
+      <Filter>LMS</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Labeler\Labeler.h">
+      <Filter>Label\Labeler</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Tracker_KCF\ffttools.hpp">
+      <Filter>Label\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Tracker_KCF\fhog.hpp">
+      <Filter>Label\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Tracker_KCF\kcftracker.hpp">
+      <Filter>Label\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Tracker_KCF\labdata.hpp">
+      <Filter>Label\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Tracker_KCF\recttools.hpp">
+      <Filter>Label\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Tracker_KCF\tracker.h">
+      <Filter>Label\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\Recorder\Recorder.h">
+      <Filter>Label\Recorder</Filter>
+    </ClInclude>
+    <ClInclude Include="GTLabel.h">
+      <Filter>Label</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform_fang\GPS\coordinateconvertion.h">
+      <Filter>Transform_fang\GPS</Filter>
+    </ClInclude>
+    <ClInclude Include="getVeloPosFromImage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Label\GTClassSizeInfo\GTClassSizeInfo.h">
+      <Filter>Label\GTClassSizeInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="imageShifter.h">
+      <Filter>Ladybug</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.yml" />
+  </ItemGroup>
+</Project>

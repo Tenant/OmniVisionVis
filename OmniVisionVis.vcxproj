@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{807C9953-F326-4050-AEFD-236846026E04}</ProjectGuid>
+    <RootNamespace>OmniVisionVis</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\lib\opencv3\build\x64\vc14\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/D _CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Program Files\Point Grey Research\Ladybug\lib64;C:\lib\opencv3\build\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/D _CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Program Files\Point Grey Research\Ladybug\lib64;C:\lib\opencv3\build\x64\vc12\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Flea2\flea2reader.cpp" />
+    <ClCompile Include="getVeloPosFromImage.cpp" />
+    <ClCompile Include="GPS\gps.cpp" />
+    <ClCompile Include="GTLabel.cpp" />
+    <ClCompile Include="imageShifter.cpp" />
+    <ClCompile Include="Label\GTClassSizeInfo\GTClassSizeInfo.cpp" />
+    <ClCompile Include="Label\Labeler\Labeler.cpp" />
+    <ClCompile Include="Label\Recorder\Recorder.cpp" />
+    <ClCompile Include="Label\Tracker_KCF\fhog.cpp" />
+    <ClCompile Include="Label\Tracker_KCF\kcftracker.cpp" />
+    <ClCompile Include="LadybugImages\LadybugImages.cpp" />
+    <ClCompile Include="LadybugPGR\LoadLadyBugPgr.cpp" />
+    <ClCompile Include="LadybugVideo\LadybugVideo.cpp" />
+    <ClCompile Include="LMS\urg.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="misc.cpp" />
+    <ClCompile Include="OmniVision.cpp" />
+    <ClCompile Include="Sensors\sensor.cpp" />
+    <ClCompile Include="Transform_fang\Flea2\CAL_TRAN.cpp" />
+    <ClCompile Include="Transform_fang\Flea2\MyCalib.cpp" />
+    <ClCompile Include="Transform_fang\GPS\coordinateconvertion.cpp" />
+    <ClCompile Include="Transform_fang\transform_fang.cpp" />
+    <ClCompile Include="Velodyne\velodynecalibinterface.cpp" />
+    <ClCompile Include="Velodyne\velodynedatainterface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="define_zhao.h" />
+    <ClInclude Include="Flea2\flea2reader.h" />
+    <ClInclude Include="getVeloPosFromImage.h" />
+    <ClInclude Include="GPS\gps.h" />
+    <ClInclude Include="GTLabel.h" />
+    <ClInclude Include="header.h" />
+    <ClInclude Include="imageShifter.h" />
+    <ClInclude Include="Label\GTClassSizeInfo\GTClassSizeInfo.h" />
+    <ClInclude Include="Label\Labeler\Labeler.h" />
+    <ClInclude Include="Label\Recorder\Recorder.h" />
+    <ClInclude Include="Label\Tracker_KCF\ffttools.hpp" />
+    <ClInclude Include="Label\Tracker_KCF\fhog.hpp" />
+    <ClInclude Include="Label\Tracker_KCF\kcftracker.hpp" />
+    <ClInclude Include="Label\Tracker_KCF\labdata.hpp" />
+    <ClInclude Include="Label\Tracker_KCF\recttools.hpp" />
+    <ClInclude Include="Label\Tracker_KCF\tracker.h" />
+    <ClInclude Include="LadybugImages\LadybugImages.h" />
+    <ClInclude Include="LadybugPGR\LoadLadyBugPgr.h" />
+    <ClInclude Include="LadybugVideo\LadybugVideo.h" />
+    <ClInclude Include="LMS\urg.h" />
+    <ClInclude Include="misc.h" />
+    <ClInclude Include="OmniVision.h" />
+    <ClInclude Include="Sensors\sensor.h" />
+    <ClInclude Include="Transform_fang\Flea2\CAL_MAIN.H" />
+    <ClInclude Include="Transform_fang\GPS\coordinateconvertion.h" />
+    <ClInclude Include="Transform_fang\transform_fang.h" />
+    <ClInclude Include="Velodyne\velodynecalibinterface.h" />
+    <ClInclude Include="Velodyne\velodynedatainterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.yml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
