@@ -11,6 +11,7 @@ class Flea2Data : public SensorData
 {
 public:
 	cv::Mat img;
+	std::string filename;
 };
 
 class Flea2Config : public SensorConfig
@@ -31,7 +32,7 @@ public:
 	virtual bool grabData(const long long t);
 	virtual bool grabNextData();
 	virtual bool getTime(long long& t);
-	const Flea2Data& getCurrentData() { return currentData; };
+	const Flea2Data& getCurrentData();
 
 	void VehicleP2ImageP(const cv::Point3d & in, cv::Point2i& out);
 	void ImageP2VehicleP(const cv::Point2i & in, cv::Point3d& out);

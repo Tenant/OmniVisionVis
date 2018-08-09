@@ -72,9 +72,7 @@ bool Flea2Reader::grabData(const long long t)
 	if (findDataByTime(t, _curIndex))
 	{
 		currentData.timestamp = timestamps[_curIndex];
-		currentData.img = cv::imread(config.path + imgFilenames[_curIndex]);
-		if (currentData.img.data == NULL)
-			return false;
+		currentData.filename = config.path + imgFilenames[_curIndex];
 		return true;
 	}
 	return false;
@@ -84,9 +82,7 @@ bool Flea2Reader::grabNextData()
 {
 	++_curIndex;
 	currentData.timestamp = timestamps[_curIndex];
-	currentData.img = cv::imread(config.path + imgFilenames[_curIndex]);
-	if (currentData.img.data == NULL)
-		return false;
+	currentData.filename = config.path + imgFilenames[_curIndex];
 	return true;
 }
 
@@ -94,6 +90,13 @@ bool Flea2Reader::getTime(long long & t)
 {
 	t = currentData.timestamp;
 	return true;
+}
+
+const Flea2Data & Flea2Reader::getCurrentData()
+{
+	currentData.img = cv::imread(currentData.filename);
+	assert(currentData.img.data != NULL);
+	return currentData;	// TODO: 在此处插入 return 语句
 }
 
 void Flea2Reader::VehicleP2ImageP(const cv::Point3d & in, cv::Point2i& out)
