@@ -1,10 +1,6 @@
 #ifndef PGR_H
 #define PGR_H
 
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #include <Windows.h>
 #include <ladybug.h>
 #include <ladybugrenderer.h>

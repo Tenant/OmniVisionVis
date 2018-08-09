@@ -36,18 +36,28 @@ bool Flea2Reader::init(const std::string& path)
 		return false;
 	const int maxCharNumPreLine = 200;
 	char * str = new char[maxCharNumPreLine];
+
+	if (std::isalpha(static_cast<unsigned char>(inFile.peek())))//假如第一行是字母说明是徐总写的格式说明
+		inFile.getline(str, maxCharNumPreLine);
+
+	const char * split = ", ";//原始的pos文件都是','分隔符，但是我用excel的直接拷贝出去所以是'\t'分隔符
+
 	while (!inFile.eof())
 	{
 		inFile.getline(str, maxCharNumPreLine);
 		if (strlen(str) == 0)//一旦用excel打开就会添加空行
 			break;
-		std::vector<std::string> terms = splitWithStl(str, ",");
-		if (terms.size()!=2)//timestamp, filename
-			return false;
-		timestamps.push_back(std::stoll(terms[0]));
-		terms[1].erase(0, terms[1].find_first_not_of(" "));
-		terms[1].erase(terms[1].find_last_not_of(" ") + 1);
-		imgFilenames.push_back(terms[1]);
+		//std::vector<std::string> terms = splitWithStl(str, ",");
+		//if (terms.size()!=2)//timestamp, filename
+		//	return false;
+		//timestamps.push_back(std::stoll(terms[0]));
+		//imgFilenames.push_back(terms[1]);
+		long  long timebuffer;
+		char * p = strtok(str, split);
+		sscanf(p, "%lld", &timebuffer);
+		p = strtok(NULL, split);
+		timestamps.push_back(timebuffer);
+		imgFilenames.push_back(p);
 	}
 	//generateTimeFromFilename();
 	inFile.close();

@@ -77,6 +77,8 @@ public:
 	int _refineStep;//0 是粗标定， 1 是细标定图像， 2是补全缺失的激光，3是细标定激光及GPS
 
 private:
+
+	int _waitKeyTime;
 	long long _currentTime;//针对多个主传感器而设置的
 	ColorMap _colormap;
 

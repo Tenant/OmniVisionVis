@@ -47,8 +47,8 @@ bool getAccuratePosPano(cv::Rect rect, const VelodyneData & veloData, LadybugRea
 	std::vector<cv::Point3d> ptList;
 	for (auto vp : veloData.point)
 	{
-		if (vp.z < minValidVeloHeight || vp.z > maxValidVeloHeight)
-			continue;
+		//if (vp.z < minValidVeloHeight || vp.z > maxValidVeloHeight)
+		//	continue;
 		cv::Point2i lp;
 		ladybug.VehicleP2ImageP(vp, lp);
 		if (isInImage(lp, rect))

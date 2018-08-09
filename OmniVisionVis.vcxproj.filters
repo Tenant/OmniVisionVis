@@ -227,5 +227,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="config.yml" />
+    <None Include="C:\Users\Kun\AppData\Local\Temp\报告20180807-2121.diagsession" />
   </ItemGroup>
 </Project>

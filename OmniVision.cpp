@@ -11,13 +11,19 @@ bool OmniVision::init()
 	fs["refineStep"] >> _refineStep;
 	fs["refineUID"] >> _refineUID;
 	fs["refineObjClass"] >> _refineObjClass;
+	fs["responseTime"] >> _waitKeyTime;
 	fs.release();
 
 	std::istringstream is(stringTimeTmp);
 	is >> _startTime;
 
 	_priSensors.push_back(&_velodyne);
-	_priSensors.push_back(&_flea2);
+
+	if(_refineStep == 1)//只有在细标注图像才每一帧图像都读
+		_priSensors.push_back(&_flea2);
+	else
+		_subSensors.push_back(&_flea2);
+
 	for (auto s : _priSensors)
 	{
 		if (!s->init("config.yml"))
@@ -26,9 +32,10 @@ bool OmniVision::init()
 			return false;
 	}
 
-	_subSensors.push_back(&_urg);
+	//_subSensors.push_back(&_urg);
 	_subSensors.push_back(&_gps);
-	_subSensors.push_back(&_ladybug);
+	if (_refineStep == 0)//只有在粗标注才要
+		_subSensors.push_back(&_ladybug);
 	for (auto s : _subSensors)
 		if (!s->init("config.yml"))
 			return false;
@@ -103,8 +110,8 @@ bool OmniVision::getData()
 	_gpsData = _gps.getCurrentData();
 	std::cout << " | gps: " << _gpsData.timestamp;
 
-	_urgData = _urg.getCurrentData();
-	std::cout << " | urg: " << _urgData.timestamp;
+	//_urgData = _urg.getCurrentData();
+	//std::cout << " | urg: " << _urgData.timestamp;
 	
 	_panoData = _ladybug.getCurrentData();
 	std::cout << " | pano: " << _panoData.timestamp;
@@ -192,14 +199,23 @@ void OmniVision::testImageP2VehicleP()
 
 void OmniVision::showVelo()
 {
+	bool isColorIn;
+	cv::FileStorage fs("config.yml", cv::FileStorage::READ);
+	fs["veloColor"] >> isColorIn;
+	fs["minValidVeloHeight"] >> minValidVeloHeight;
+	fs["maxValidVeloHeight"] >> maxValidVeloHeight;
+	fs.release();
+
 	_bv_velo.create(cv::Size(_mapSize, _mapSize), CV_8UC3);
 	_bv_velo.setTo(0);
 
 	cv::cvtColor(_monoData.img, _mono_velo, CV_BGR2GRAY);
 	cv::cvtColor(_mono_velo, _mono_velo, CV_GRAY2BGR);
-	cv::cvtColor(_ladybug.getCurrentData().img, _pano_velo, CV_BGR2GRAY);
-	cv::cvtColor(_pano_velo, _pano_velo, CV_GRAY2BGR);
-
+	if (_refineStep == 0)//只有在粗标注才要
+	{
+		cv::cvtColor(_ladybug.getCurrentData().img, _pano_velo, CV_BGR2GRAY);
+		cv::cvtColor(_pano_velo, _pano_velo, CV_GRAY2BGR);
+	}
 	/*for (int y = 0; y < canvas_bv.rows; y++)
 	{
 		for (int x = 0; x < canvas_bv.cols; x++)
@@ -216,12 +232,23 @@ void OmniVision::showVelo()
 	}
 	cv::imshow("clean bv", canvas_bv);*/
 	cv::Rect visROI = cv::Rect(0, 0, _pano_velo.cols, _pano_velo.rows);
-	for (auto vp : _veloData.point)
+	//for (auto vp : _veloData.point)
+	//{
+	for(int i = 0 ; i < _veloData.point.size(); i ++)
 	{
-		if (vp.z < minValidVeloHeight || vp.z > maxValidVeloHeight)
-			continue;
+		auto vp = _veloData.point[i];
+		//if (vp.z < minValidVeloHeight || vp.z > maxValidVeloHeight)
+		//	continue;
 #if !isCalib
-		cv::Vec3b color = _colormap.getColor(vp.z, minValidVeloHeight, maxValidVeloHeight); //高度
+		cv::Vec3b color;
+		//cv::Vec3b color = _colormap.getColor(vp.z, minValidVeloHeight, maxValidVeloHeight); //高度
+		//cv::Vec3b color = _colormap.getColor(vp.z, 0, 1); //高度
+
+
+		if(isColorIn == 1)
+			color = _colormap.getColor(_veloData.intensi[i], 0, 50); //反射率
+		else
+			color = _colormap.getColor(vp.z, minValidVeloHeight, maxValidVeloHeight); //高度
 #endif
 	    //cv::Vec3b color = _colormap.getColor(std::sqrtf(vp.z*vp.z + vp.y*vp.y + vp.x*vp.x), 1, 15);// 距离
 
@@ -236,12 +263,16 @@ void OmniVision::showVelo()
 		if (lp.x > visROI.x+ visROI.width || lp.x < visROI.x || lp.y < visROI.y || lp.y > visROI.y + visROI.height || vp.z < 0.1)
 			continue;//标定单目用
 #endif
-		if (isInImage(lp, _pano_velo))
-			_pano_velo.at<cv::Vec3b>(lp) = color; //cv::Vec3b(255, 255, 255);// vp.color
+		if (_refineStep == 0)//只有在粗标注才要
+		{
+			if (isInImage(lp, _pano_velo))
+				_pano_velo.at<cv::Vec3b>(lp) = color; //cv::Vec3b(255, 255, 255);// vp.color
+		}
 
 		cv::Point2i bvp(_mapSize / 2 + vp.x / _pixelSize, _mapSize / 2 - vp.y / _pixelSize);
 		if (isInImage(bvp, _bv_velo))
-			_bv_velo.at<cv::Vec3b>(bvp) = color;
+			if(_bv_velo.at<cv::Vec3b>(bvp) == cv::Vec3b(0,0,0))//取最高点
+				_bv_velo.at<cv::Vec3b>(bvp) = color;
 
 		cv::Point2i fp;
 		_flea2.VehicleP2ImageP(vp, fp);
@@ -253,11 +284,13 @@ void OmniVision::showVelo()
 	{
 		cv::imshow(winNameMono, _mono_velo);
 		cv::imshow(winNameBV, _bv_velo);
-		cv::imshow(winNamePano, _pano_velo(visROI));
+		if (_refineStep == 0)//只有在粗标注才要
+			cv::imshow(winNamePano, _pano_velo(visROI));
 	}
 
 	_VW_mono << _mono_velo;
-	_VW_pano << _pano_velo;
+	if (_refineStep == 0)//只有在粗标注才要
+		_VW_pano << _pano_velo;
 	_VW_bv << _bv_velo;
 }
 
@@ -447,7 +480,7 @@ void OmniVision::addMissingGlobalBVLabel()
 {
 	if (!_gtLabeler.getRefineSavedGT_timeDuration(_refineUID, _currentTime))
 		return;
-	_gtLabeler.addMissingGT_bv(_gps, _flea2, _veloData, _refineUID, GTClassInfo(_refineObjClass[0]));
+	_gtLabeler.addMissingGT_bv(_gpsData, _flea2, _veloData, _refineUID, GTClassInfo(_refineObjClass[0]));
 	cv::waitKey(10);
 }
 
@@ -457,7 +490,7 @@ void OmniVision::refineGlobalBVLabel()
 		return;
 	//可视化最后一个锚点转换到当前局部坐标系的位置
 	_gtLabeler.visualiseLastArchor(_bv_velo, _gps);
-	char key = cv::waitKey(10);
+	char key = cv::waitKey(_waitKeyTime);
 	switch (key)
 	{
 	case 'A':

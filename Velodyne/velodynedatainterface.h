@@ -1,18 +1,13 @@
 #ifndef VELODYNEDATAINTERFACE_H
 #define VELODYNEDATAINTERFACE_H
-
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #include <fstream>
 #include "../Sensors/sensor.h"
 #include "../header.h"
 #include "../misc.h"
 #include "velodynecalibinterface.h"
 
-#define minValidVeloHeight -4.0
-#define maxValidVeloHeight 10.0
+static double minValidVeloHeight;
+static double maxValidVeloHeight;
 
 class VelodyneData : public SensorData
 {
@@ -32,6 +27,9 @@ public:
 	std::string instrinsicParamsFilename;
 	std::string extrinsicParamsFilename;
 	std::string velodyneFilename;
+	
+	double minValidVeloHeightTemp;
+	double maxValidVeloHeightTemp;
 };
 
 class VelodyneReader : public SensorReader

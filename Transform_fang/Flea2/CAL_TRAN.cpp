@@ -44,10 +44,6 @@
 #include <math.h>
 #include "cal_main.h"
 
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #define SQRT(x) sqrt(fabs(x))
 
 extern camera_parameters cp;
@@ -74,7 +70,7 @@ double    CBRT (double x)
 
 void      initialize_photometrics_parms ()
 {
-    strcpy_s (camera_type, "Photometrics Star I");
+    strcpy (camera_type, "Photometrics Star I");
 	
     cp.Ncx = 576;		/* [sel]        */
     cp.Nfx = 576;		/* [pix]        */

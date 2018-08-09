@@ -384,6 +384,10 @@ bool VelodyneConfig::init(const std::string & path)
 	fs["veloInstrinsicParamsFilename"] >> instrinsicParamsFilename;
 	fs["veloExtrinsicParamsFilename"] >> extrinsicParamsFilename;
 	fs["velodyneFilename"] >> velodyneFilename;
+
+	fs["minValidVeloHeight"] >> minValidVeloHeight;
+	fs["maxValidVeloHeight"] >> maxValidVeloHeight;
+
 	fs.release();
 	return true;
 }

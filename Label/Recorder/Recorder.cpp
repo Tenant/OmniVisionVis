@@ -158,7 +158,8 @@ bool Recorder::getOneSavedGTIndex(char sensorType, int uid, long long t, int& in
 			continue;
 		if (gts[i].uid!= uid)
 			continue;
-		if (gts[i].visibleStartTime <= t && t <= gts[i].visibleEndTime)
+		if (gts[i].visibleStartTime == t)//假的激光起始时间太害人...
+		//if (gts[i].visibleStartTime <= t && t < gts[i].visibleEndTime)
 		{
 			index = i;
 			return true;

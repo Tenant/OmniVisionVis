@@ -462,6 +462,12 @@ namespace fang
 				//可视化在bv， 重复实现了， 单独提取出来变成函数
 				onegt.sensorType = 'L';
 				generate2DBBox(curInfo, aBBox, selectorParams.yaw, onegt.sensorType, flea2, onegt.objCorners);
+
+				//为了测试计算朝向对不对
+				//std::cout << "debug0 :" << rot_angle << std::endl;
+				//std::cout << "debug1 :" << onegt.objCorners[1] << "|||" << onegt.objCorners[2] << std::endl;
+				//std::cout << "debug2 :" << atan2(onegt.objCorners[2].y - onegt.objCorners[1].y, onegt.objCorners[2].x - onegt.objCorners[1].x) << std::endl;
+
 				cv::Point2i bvp[4];
 				for (int i = 0; i < 4; i++)
 				{

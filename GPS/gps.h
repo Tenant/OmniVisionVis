@@ -1,10 +1,6 @@
 #ifndef GPS_H
 #define GPS_H
 
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 //#include "define.h"
 #include <string>
 #include <fstream>

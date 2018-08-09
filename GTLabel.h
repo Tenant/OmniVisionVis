@@ -1,9 +1,4 @@
 #pragma once
-
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #include <iomanip>
 #include "Label/Labeler/Labeler.h"
 #include "Label/Recorder/Recorder.h"
@@ -35,7 +30,7 @@ public:
 	bool getRefineSavedGT_timeDuration(int uid, long long curtime);
 	void refineSavedGT_bv_addArchor(GPSReader& gps, VelodyneData& veloData, int uid);
 	void refineSavedGT_bv_startSailing(GPSReader& gps, int uid);
-	void addMissingGT_bv(GPSReader& gps, Flea2Reader& flea2, VelodyneData& veloData, int uid, GTClassInfo gtci);
+	void addMissingGT_bv(GPSData& gpsData, Flea2Reader& flea2, VelodyneData& veloData, int uid, GTClassInfo gtci);
 	void refineSavedGT_mono(Flea2Reader& flea2, GPSReader& gps, Flea2Data& monoData, VelodyneData& veloData, cv::Mat& canvas_mono, cv::Mat& canvas_bv, bool& isAddNew, int uid);
 	void visualiseLastArchor(cv::Mat& canvas, GPSReader& gps);
 
