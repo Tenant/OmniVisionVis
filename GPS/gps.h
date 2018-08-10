@@ -59,4 +59,6 @@ private:
 	std::vector<GPSData> position;
 };
 
+GPSData getInterpolatedGPS_YawXY(long long time, GPSData prev, GPSData next);
+
 #endif

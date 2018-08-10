@@ -500,6 +500,7 @@ void OmniVision::refineGlobalBVLabel()
 	case 'R':
 	case 'r':
 		_gtLabeler.refineSavedGT_bv_addFakeArchor(_gps, _veloData, _refineUID, _bv_velo, _flea2);
+		break;
 	case 27:
 		_gtLabeler.refineSavedGT_bv_startSailing(_gps, _refineUID);
 		break;

@@ -36,6 +36,8 @@ public:
 public:
 	//void generateCorners(); 要调用不同类的坐标系转换？还是这里仅仅生成3d box然后返回自行计算
 	void draw(cv::Mat& canvas, cv::Scalar color);
+	double generateYawFromCorners();
+
 };
 
 bool isSensorTypeMatched(const char sensorType0, const char sensorType1);

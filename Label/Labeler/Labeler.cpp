@@ -417,6 +417,7 @@ namespace fang
 				gps.VehicleP2GlobalP(centerP, gt.objPos);
 				std::cout << "debug0 :" << centerP << std::endl;
 				std::cout << "debug1 :" << gt.objPos << std::endl;
+				std::cout << "debug2 :" << gt.generateYawFromCorners() * 180.0 / CV_PI << std::endl;
 
 				//为了测试计算朝向对不对
 				//std::cout << "debug0 :" << rot_angle << std::endl;
@@ -446,12 +447,8 @@ namespace fang
 
 		roi = selectorParams.box;
 
-		double dx, dy;
-		//c1是x-y+(左上方)，c2是x+y+(右上方)
-		dx = gt.objCorners[2].x - gt.objCorners[1].x;
-		dy = gt.objCorners[2].y - gt.objCorners[1].y;
+		yaw = gt.generateYawFromCorners();
 
-		yaw = atan2(dy, dx);// [-pi,+pi]
 		//return selectorParams.box;
 	}
 

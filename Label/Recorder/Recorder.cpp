@@ -47,6 +47,15 @@ void OneGroundTruth::draw(cv::Mat & canvas, cv::Scalar color)
 	cv::line(canvas, objCorners[3], objCorners[0], color);
 }
 
+double OneGroundTruth::generateYawFromCorners()
+{
+	double dx, dy;
+	//c1是x-y+(左上方)，c2是x+y+(右上方)
+	dx = objCorners[2].x - objCorners[1].x;
+	dy = objCorners[2].y - objCorners[1].y;
+	return atan2(dy, dx);// [-pi,+pi]
+}
+
 bool Recorder::load(const string& filename)
 {
 	gts.clear();

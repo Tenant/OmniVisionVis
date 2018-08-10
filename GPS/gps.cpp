@@ -337,3 +337,39 @@ bool GPSConfig::init(const std::string & configfile)
 	fs.release();
 	return true;
 }
+
+double shortAngleDist(double a0, double a1) {
+	double max = CV_2PI;
+	double da = (a1 - a0);
+	while(da > max)//da %= max
+		da -= max;
+	double doubleda = 2 * da;//2 * da 
+	while (doubleda > max)//2 * da %= max
+		doubleda -= max;
+	return doubleda - da;
+}
+
+GPSData getInterpolatedGPS_YawXY(long long time, GPSData prev, GPSData next)
+{
+	//cv::Point2d getInterpolatedPosition(long long time, long long st, long long et, cv::Point2d sp, cv::Point2d ep)
+		if (time < prev.timestamp)
+			return prev;
+		if (time > next.timestamp)
+			return next;
+		double factor = double(time - prev.timestamp) / double(next.timestamp - prev.timestamp);
+		//std::cout << factor << std::endl;
+
+		GPSData ip;
+		ip.timestamp = time;
+
+		cv::Point2d buffer;
+		ip.x = (1 - factor) * prev.x + factor * next.x;
+		ip.y = (1 - factor) * prev.y + factor * next.y;
+
+		//½Ç¶È²åÖµ²Î¿¼£ºhttps://gist.github.com/shaunlebron/8832585
+		double prevYaw = prev.yaw;
+		double nextYaw = next.yaw;
+		ip.yaw = prevYaw + shortAngleDist(prevYaw, nextYaw)*factor;
+
+		return ip;
+}

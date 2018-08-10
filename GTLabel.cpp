@@ -125,7 +125,7 @@ void GTLabel::visualiseLastArchor(cv::Mat& canvas, GPSReader& gps)
 	{
 		std::cout << "Archor num: " << _mapArchorGPSPositions.size() << std::endl;
 		cv::Point3d vehicleP;
-		cv::Point2d globalPos = (*_mapArchorGPSPositions.rbegin()).second;
+		cv::Point2d globalPos = cv::Point2d((*_mapArchorGPSPositions.rbegin()).second.x, (*_mapArchorGPSPositions.rbegin()).second.y);
 		gps.GlobalP2VehicleP(globalPos, vehicleP);
 
 		cv::Point2d bvp;
@@ -140,20 +140,6 @@ void GTLabel::visualiseLastArchor(cv::Mat& canvas, GPSReader& gps)
 		ssTmp << gt.uid << ": " << gt.objClass;
 		cv::putText(canvas_bv, ssTmp.str(), cv::Point2i(bvp[0].x, bvp[0].y + textHeight), cv::FONT_HERSHEY_SIMPLEX, 0.55, CV_RGB(255, 0, 0), 2);*/
 	}
-}
-
-cv::Point2d getInterpolatedPosition(long long time, long long st, long long et, cv::Point2d sp, cv::Point2d ep)
-{
-	if (time < st)
-		return sp;
-	if (time > et)
-		return ep;
-	double factor = double(time - st) / double(et - st);
-	std::cout << factor << std::endl;
-	cv::Point2d buffer;
-	buffer.x = (1 - factor) * sp.x + factor * ep.x;
-	buffer.y = (1 - factor) * sp.y + factor * ep.y;
-	return buffer;
 }
 
 bool GTLabel::getRefineSavedGT_timeDuration(int uid, long long curtime)
@@ -185,7 +171,12 @@ void GTLabel::refineSavedGT_bv_addArchor(GPSReader& gps, VelodyneData& veloData,
 	int index;
 	if (recorder.getOneSavedGTIndex('L', uid, veloData.timestamp, index))
 	{
-		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, recorder.gts[index].objPos));
+		GPSData fakeGPSPos;
+		fakeGPSPos.x = recorder.gts[index].objPos.x;
+		fakeGPSPos.y = recorder.gts[index].objPos.y;
+		fakeGPSPos.yaw = recorder.gts[index].generateYawFromCorners();
+
+		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, fakeGPSPos));
 	}
 }
 
@@ -196,57 +187,48 @@ void GTLabel::refineSavedGT_bv_addFakeArchor(GPSReader & gps, VelodyneData & vel
 	{
 		OneGroundTruth gt = recorder.gts[index];
 
-		double dx, dy;
-		//c1是x-y+(左上方)，c2是x+y+(右上方)
-		dx = gt.objCorners[2].x - gt.objCorners[1].x;
-		dy = gt.objCorners[2].y - gt.objCorners[1].y;
-		double yawOfThisGT = atan2(dy, dx);// [-pi,+pi]
+		double yawOfThisGT = gt.generateYawFromCorners();
+		setGlobalYaw(yawOfThisGT, gps.getCurrentData());//实时更新globalYaw
 		gt.objYaw = getLocalYaw(gps.getCurrentData());
 
+		GPSData fakeGPSPos;
+
 		cv::Rect roi;
-		double yaw;
-		fang::selectROI(roi, yaw, gt, canvas_bv, flea2, gps);
-		
-		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, gt.objPos));
+		fang::selectROI(roi, fakeGPSPos.yaw, gt, canvas_bv, flea2, gps);
+		fakeGPSPos.x = gt.objPos.x;
+		fakeGPSPos.y = gt.objPos.y;
+
+		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, fakeGPSPos));
 
 		//朝向插值太麻烦...我不想做...必须要做
 	}
 }
 
-void GTLabel::modifyOneSavedGT(OneGroundTruth& gt, cv::Point2d refinedCenter, GPSReader& gps)
+void GTLabel::modifyOneSavedGT(OneGroundTruth& gt, GPSData refinedCenter, GPSReader& gps)
 {
 	if (!gps.grabData(gt.visibleStartTime))
 		system("pause");
 	if (isSensorTypeMatched(gt, 'C'))
 	{
-		gt.objPos = refinedCenter;
+		gt.objPos.x = refinedCenter.x;
+		gt.objPos.y = refinedCenter.y;
 	}
 	else
 	{
-		gt.objPos = refinedCenter;
-		//计算四个角点					
-		cv::Point3d vehicleCorners[4];
-		cv::Point2d globalCorners[4];
-		cv::Point2d globalCenter(0.0, 0.0);
-		for (int i = 0; i < 4; i++)
-		{
-			vehicleCorners[i].x = gt.objCorners[i].x;
-			vehicleCorners[i].y = gt.objCorners[i].y;
-			vehicleCorners[i].z = 0;
-			gps.VehicleP2GlobalP(vehicleCorners[i], globalCorners[i]);
-			globalCenter += globalCorners[i];
-		}
-		globalCenter.x /= 4;
-		globalCenter.y /= 4;
+		gt.objPos.x = refinedCenter.x;
+		gt.objPos.y = refinedCenter.y;
+		//计算四个角点	
+		setGlobalYaw(refinedCenter.yaw, gps.getCurrentData());
+		double localy = getLocalYaw(gps.getCurrentData());
+		GTClassInfo gtci = GTClassInfo(gt.objClass);
+		cv::Point3d fake3dP;
+		gps.GlobalP2VehicleP(gt.objPos, fake3dP);
+		//fake3dP.x = gt.objPos.x;
+		//fake3dP.y = gt.objPos.y;
+		fake3dP.z = gtci.height/2;
+		Flea2Reader test = Flea2Reader();
+		generate2DBBox(gtci, fake3dP, localy, gt.sensorType, test, gt.objCorners);
 
-		cv::Point2d shift = refinedCenter - globalCenter;
-		for (int i = 0; i < 4; i++)
-		{
-			globalCorners[i] += shift;
-			gps.GlobalP2VehicleP(globalCorners[i], vehicleCorners[i]);
-			gt.objCorners[i].x = vehicleCorners[i].x;
-			gt.objCorners[i].y = vehicleCorners[i].y;
-		}
 	}
 }
 
@@ -258,9 +240,10 @@ void GTLabel::refineSavedGT_bv_startSailing(GPSReader& gps, int uid)
 	{
 		if (gt.uid == uid)
 		{
-			cv::Point2d refinedCenter;
+			GPSData refinedCenter;
 			if (_mapArchorGPSPositions.size() == 1)
 			{
+				//refinedCenter = (*_mapArchorGPSPositions.begin()).second;
 				refinedCenter = (*_mapArchorGPSPositions.begin()).second;
 			}
 			else
@@ -277,7 +260,7 @@ void GTLabel::refineSavedGT_bv_startSailing(GPSReader& gps, int uid)
 				{
 					auto nextE = _mapArchorGPSPositions.upper_bound(gt.visibleStartTime);
 					auto prevE = std::prev(nextE);
-					refinedCenter = getInterpolatedPosition(gt.visibleStartTime, (*prevE).first, (*nextE).first, (*prevE).second, (*nextE).second);
+					refinedCenter = getInterpolatedGPS_YawXY(gt.visibleStartTime, (*prevE).second, (*nextE).second);
 				}
 			}
 			modifyOneSavedGT(gt, refinedCenter, gps);
@@ -314,13 +297,7 @@ void GTLabel::addMissingGT_bv(GPSReader& gps, Flea2Reader& flea2, VelodyneData& 
 		}
 		else
 		{
-			double dx, dy;
-			
-			//c1是x-y+(左上方)，c2是x+y+(右上方)
-			dx = recorder.gts[index].objCorners[2].x - recorder.gts[index].objCorners[1].x;
-			dy = recorder.gts[index].objCorners[2].y - recorder.gts[index].objCorners[1].y;
-
-			double yawOfThisGT = atan2(dy, dx);// [-pi,+pi]
+			double yawOfThisGT = recorder.gts[index].generateYawFromCorners();
 			
 			setGlobalYaw(yawOfThisGT, gps.getCurrentData());//实时更新globalYaw
 		}

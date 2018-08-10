@@ -79,9 +79,8 @@ private:
 
 	long long _refineStartTime;//这俩时间戳内部所有的真值都要生成出来 //
 	long long _refineEndTime;
-	std::map<long long, cv::Point2d> _mapArchorGPSPositions;//用于插值
-
-
-
-	void modifyOneSavedGT(OneGroundTruth& gt, cv::Point2d refinedCenter, GPSReader& gps);
+	
+	std::map<long long, GPSData> _mapArchorGPSPositions;//用于插值
+	
+	void modifyOneSavedGT(OneGroundTruth& gt, GPSData refinedCenter, GPSReader& gps);
 };
