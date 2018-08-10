@@ -30,4 +30,4 @@ const GTClassInfo GT_OBS = GTClassInfo("OBS", 0.5, 0.5, 0.5);
 #define MIN_MATCHING_SCORE 0.4
 //小于这个得分就返回一个空的rect
 
-void generate2DBBox(GTClassInfo info, accurateBBox abbox, double localYaw, char sensorType, Flea2Reader& flea2, cv::Point2d cornerp[4], cv::Mat templ = cv::Mat(), cv::Mat img = cv::Mat());
+void generate2DBBox(GTClassInfo info, cv::Point3d objCenterPos, double localYaw, char sensorType, Flea2Reader& flea2, cv::Point2d cornerp[4], cv::Mat templ = cv::Mat(), cv::Mat img = cv::Mat());

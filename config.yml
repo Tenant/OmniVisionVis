@@ -38,10 +38,10 @@ gpsMethod: "GPS_NEAREST"
 #b3 800 (uid 4)
 #skipFrames: 0
 #startTime: "0"
-startTime: "38464430"
+startTime: "38461986"
 responseTime: 10
 
-refineStep: 1
+refineStep: 3
 refineUID: 14
 refineObjClass: 'V'
 

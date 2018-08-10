@@ -3,6 +3,7 @@
 #include "../../LadybugPGR/LoadLadyBugPgr.h"
 #include "../../Flea2/flea2reader.h"
 #include "../../Velodyne/velodynedatainterface.h"
+#include "../../GPS/gps.h"
 
 #include "../GTClassSizeInfo/GTClassSizeInfo.h"
 #include "../Recorder/Recorder.h"
@@ -34,6 +35,7 @@ namespace fang
 		Rect select(const cv::String& windowName, Mat img, bool showCrossair = true, bool fromCenter = true);
 
 		void select(Rect& roi, double& yaw, LadybugReader& ladybug, Flea2Reader& flea2, VelodyneData& veloData, cv::Mat& canvas_pano, cv::Mat& canvas_mono, cv::Mat& canvas_bv);
+		void select(Rect& roi, double& yaw, OneGroundTruth& gt, cv::Mat& canvas_bv, Flea2Reader& flea2, GPSReader& gps);
 
 		void select(const cv::String& windowName, Mat img, std::vector<Rect> & boundingBox, bool fromCenter = true);
 
@@ -72,6 +74,9 @@ namespace fang
 		static void mouseHandler(int event, int x, int y, int flags, void *param);
 		void opencv_mouse_callback(int event, int x, int y, int, void *param);
 
+		static void mouseHandler_bv(int event, int x, int y, int flags, void *param);
+		void opencv_mouse_callback_bv(int event, int x, int y, int, void *param);
+
 		// save the keypressed characted
 		int key;
 	};
@@ -80,4 +85,5 @@ namespace fang
 	Rect selectROI(const cv::String& windowName, Mat img, bool showCrossair = true, bool fromCenter = true);
 	void selectROI(const cv::String& windowName, Mat img, std::vector<Rect> & boundingBox, bool fromCenter = true);
 	void selectROI(Rect& roi, double& yaw, LadybugReader& ladybug, Flea2Reader& flea2, VelodyneData& veloData, cv::Mat& canvas_pano, cv::Mat& canvas_mono, cv::Mat& canvas_bv);
+	void selectROI(Rect& roi, double& yaw, OneGroundTruth& gt, cv::Mat& canvas_bv, Flea2Reader& flea2, GPSReader& gps);
 }

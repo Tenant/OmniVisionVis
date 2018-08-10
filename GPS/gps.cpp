@@ -117,11 +117,15 @@ bool GPSReader::init(const std::string& configfile)
 			//geographicCoordTrans.LocalLBH_XYZ(lbh, xyz);
 			geographicCoordTrans.GPS84LBH_LocalXYZ(lbh, xyz);
 			
-			///double checkLBH[3];
-			///geographicCoordTrans.LocalXYZ_LBH(xyz, checkLBH);
+			//double checkLBH[3];
+			//geographicCoordTrans.LocalXYZ_LBH(xyz, checkLBH);
 			buffer.x = xyz[1];//这边是反的...
 			buffer.y = xyz[0];
 			buffer.z = xyz[2];
+
+			//徐总测试huaru
+			//test << std::setprecision(10) << "LBH, " << lbh[0] << ", " << lbh[1] << ", " << lbh[2];
+			//test << std::setprecision(10) << ", XYZ, " << buffer.x << ", " << buffer.y << ", " << buffer.z << std::endl;
 
 
 			imuFile.getline(str, 200);

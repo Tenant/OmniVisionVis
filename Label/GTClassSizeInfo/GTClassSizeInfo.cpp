@@ -47,7 +47,7 @@ cv::Rect MatchingMethod(cv::Mat img, cv::Mat templ)
 	return cv::Rect(0, 0, 0, 0);
 }
 
-void generate2DBBox(GTClassInfo info, accurateBBox abbox, double localYaw, char sensorType, Flea2Reader& flea2, cv::Point2d cornerp[4], cv::Mat templ, cv::Mat img)
+void generate2DBBox(GTClassInfo info, cv::Point3d objCenterPos, double localYaw, char sensorType, Flea2Reader& flea2, cv::Point2d cornerp[4], cv::Mat templ, cv::Mat img)
 {
 	cv::Point3d vp[4];
 	cv::Point2i fp[4];
@@ -62,7 +62,8 @@ void generate2DBBox(GTClassInfo info, accurateBBox abbox, double localYaw, char 
 	{
 		//中间的均值点有不稳定成分，最近的点是不是还稳定些？
 		//vp[0] = abbox.centerMean;//顺时针
-		vp[0] = abbox.nearMost;//顺时针
+		//vp[0] = abbox.nearMost;//顺时针
+		vp[0] = objCenterPos;
 		vp[0].x -= oWidth / 2;
 		vp[0].z -= oHeight / 2;
 		vp[1] = vp[0];
@@ -103,13 +104,13 @@ void generate2DBBox(GTClassInfo info, accurateBBox abbox, double localYaw, char 
 		cv::Point2i monoTop;
 		cv::Point2i monoBottom;
 		//cv::Point3d head3d = abbox.centerMean; //中间的均值点有不稳定成分，最近的点是不是还稳定些？
-		cv::Point3d head3d = abbox.nearMost;
+		cv::Point3d head3d = objCenterPos;
 		head3d.z += oHeight / 2;
 		//cv::Point3d feet3d = abbox.centerMean;
-		cv::Point3d feet3d = abbox.nearMost;
+		cv::Point3d feet3d = objCenterPos;
 		feet3d.z -= oHeight / 2;
 		//其实高度是固定的，feet设为0就好
-		std::cout << "head3d.z:" << head3d.z << " ,feet3d.z:" << feet3d.z << std::endl;
+		//std::cout << "head3d.z:" << head3d.z << " ,feet3d.z:" << feet3d.z << std::endl;
 		flea2.VehicleP2ImageP(head3d, monoTop);
 		flea2.VehicleP2ImageP(feet3d, monoBottom);
 		int heightInMono = monoBottom.y - monoTop.y;
@@ -201,8 +202,8 @@ void generate2DBBox(GTClassInfo info, accurateBBox abbox, double localYaw, char 
 			//中间的均值点有不稳定成分，最近的点是不是还稳定些？
 			//bvLocalP[i].x += abbox.centerMean.x;
 			//bvLocalP[i].y += abbox.centerMean.y;
-			bvLocalP[i].x += abbox.nearMost.x;
-			bvLocalP[i].y += abbox.nearMost.y;
+			bvLocalP[i].x += objCenterPos.x;
+			bvLocalP[i].y += objCenterPos.y;
 
 			cornerp[i] = bvLocalP[i];
 		}

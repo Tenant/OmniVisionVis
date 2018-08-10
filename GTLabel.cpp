@@ -189,6 +189,30 @@ void GTLabel::refineSavedGT_bv_addArchor(GPSReader& gps, VelodyneData& veloData,
 	}
 }
 
+void GTLabel::refineSavedGT_bv_addFakeArchor(GPSReader & gps, VelodyneData & veloData, int uid, cv::Mat& canvas_bv, Flea2Reader& flea2)
+{
+	int index;
+	if (recorder.getOneSavedGTIndex('L', uid, veloData.timestamp, index))
+	{
+		OneGroundTruth gt = recorder.gts[index];
+
+		double dx, dy;
+		//c1是x-y+(左上方)，c2是x+y+(右上方)
+		dx = gt.objCorners[2].x - gt.objCorners[1].x;
+		dy = gt.objCorners[2].y - gt.objCorners[1].y;
+		double yawOfThisGT = atan2(dy, dx);// [-pi,+pi]
+		gt.objYaw = getLocalYaw(gps.getCurrentData());
+
+		cv::Rect roi;
+		double yaw;
+		fang::selectROI(roi, yaw, gt, canvas_bv, flea2, gps);
+		
+		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, gt.objPos));
+
+		//朝向插值太麻烦...我不想做...必须要做
+	}
+}
+
 void GTLabel::modifyOneSavedGT(OneGroundTruth& gt, cv::Point2d refinedCenter, GPSReader& gps)
 {
 	if (!gps.grabData(gt.visibleStartTime))
@@ -262,7 +286,7 @@ void GTLabel::refineSavedGT_bv_startSailing(GPSReader& gps, int uid)
 	recorder.save(outputFile);
 }
 
-void GTLabel::addMissingGT_bv(GPSData& gpsData, Flea2Reader& flea2, VelodyneData& veloData, int uid, GTClassInfo gtci)
+void GTLabel::addMissingGT_bv(GPSReader& gps, Flea2Reader& flea2, VelodyneData& veloData, int uid, GTClassInfo gtci)
 {
 	//todo
 	int index;
@@ -279,10 +303,11 @@ void GTLabel::addMissingGT_bv(GPSData& gpsData, Flea2Reader& flea2, VelodyneData
 			gt.visibleEndTime = veloData.timestamp + oneVeloFrameVisibleTimeDuration;
 			gt.sensorType = 'L';
 			gt.objClass = gtci.objClass;
-			gt.objYaw = getLocalYaw(gpsData);//其实可能有bug: 假如第一次进来就在补漏，那globalYaw是随机的
-			generate2DBBox(gtci, abbox, gt.objYaw, gt.sensorType, flea2, gt.objCorners);
+			gt.objYaw = getLocalYaw(gps.getCurrentData());//其实可能有bug: 假如第一次进来就在补漏，那globalYaw是随机的
+			generate2DBBox(gtci, abbox.nearMost, gt.objYaw, gt.sensorType, flea2, gt.objCorners);
 			gt.uid = uid;
-			gt.objPos = cv::Point2d(0, 0);
+			cv::Point3d objPos = cv::Point3d(0, 0, gtci.height/2);
+			gps.VehicleP2GlobalP(objPos, gt.objPos);
 
 			recorder.update(gt);//因为已经判断getOneSavedGTIndex了，所以添加的肯定是没有的
 			//addNewGT(gt);
@@ -297,7 +322,7 @@ void GTLabel::addMissingGT_bv(GPSData& gpsData, Flea2Reader& flea2, VelodyneData
 
 			double yawOfThisGT = atan2(dy, dx);// [-pi,+pi]
 			
-			setGlobalYaw(yawOfThisGT, gpsData);//实时更新globalYaw
+			setGlobalYaw(yawOfThisGT, gps.getCurrentData());//实时更新globalYaw
 		}
 	}
 	else if (time > _refineEndTime)
@@ -420,7 +445,7 @@ void GTLabel::printOnMat(cv::Mat & canvas)
 	cv::putText(canvas, ssTmp.str(), cv::Point(4, 13), cv::FONT_HERSHEY_SIMPLEX, 0.55, CV_RGB(255, 0, 0), 2);
 }
 
-double GTLabel::getLocalYaw(GPSData& gps)
+double GTLabel::getLocalYaw(const GPSData& gps)
 {
 	double localYaw = globalYaw + gps.yaw;
 	if (localYaw < 0)
@@ -430,7 +455,7 @@ double GTLabel::getLocalYaw(GPSData& gps)
 	return localYaw;
 }
 
-double GTLabel::setGlobalYaw(double localYaw, GPSData& gps)
+double GTLabel::setGlobalYaw(double localYaw, const GPSData& gps)
 {
 	//IMU 是正北为0， 往东+， 往西-
 	globalYaw = localYaw - gps.yaw;
@@ -480,12 +505,12 @@ void GTLabel::interaction(accurateBBox abbox, double localYaw, Flea2Reader& flea
 		//可视化在mono， 重复实现了， 单独提取出来变成函数
 		OneGroundTruth onegt;
 		onegt.sensorType = 'C';
-		generate2DBBox(_curInfo, abbox, localYaw, onegt.sensorType, flea2, onegt.objCorners);
+		generate2DBBox(_curInfo, abbox.nearMost, localYaw, onegt.sensorType, flea2, onegt.objCorners);
 		onegt.draw(canvas_mono, CV_RGB(255, 0, 0));
 
 		//可视化在bv， 重复实现了， 单独提取出来变成函数
 		onegt.sensorType = 'L';
-		generate2DBBox(_curInfo, abbox, localYaw, onegt.sensorType, flea2, onegt.objCorners);
+		generate2DBBox(_curInfo, abbox.nearMost, localYaw, onegt.sensorType, flea2, onegt.objCorners);
 		cv::Point2i bvp[4];
 		for (int i = 0; i < 4; i++)
 		{

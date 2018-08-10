@@ -318,7 +318,7 @@ bool OmniVision::generateOneGT_withPanoROI(OneGroundTruth& onegt)
 	onegt.objYaw = _gtLabeler.getLocalYaw(_gpsData);
 	onegt.objClass = _gtLabeler._curInfo.objClass;
 
-	generate2DBBox(_gtLabeler._curInfo, abbox, onegt.objYaw, onegt.sensorType, _flea2, onegt.objCorners, _gtLabeler._verification, _monoData.img);
+	generate2DBBox(_gtLabeler._curInfo, abbox.nearMost, onegt.objYaw, onegt.sensorType, _flea2, onegt.objCorners, _gtLabeler._verification, _monoData.img);
 	//加一个判断是否在图像可见范围内
 	if (isSensorTypeMatched(onegt, 'C')) 
 	{
@@ -480,7 +480,7 @@ void OmniVision::addMissingGlobalBVLabel()
 {
 	if (!_gtLabeler.getRefineSavedGT_timeDuration(_refineUID, _currentTime))
 		return;
-	_gtLabeler.addMissingGT_bv(_gpsData, _flea2, _veloData, _refineUID, GTClassInfo(_refineObjClass[0]));
+	_gtLabeler.addMissingGT_bv(_gps, _flea2, _veloData, _refineUID, GTClassInfo(_refineObjClass[0]));
 	cv::waitKey(10);
 }
 
@@ -497,6 +497,9 @@ void OmniVision::refineGlobalBVLabel()
 	case 'a':
 		_gtLabeler.refineSavedGT_bv_addArchor(_gps, _veloData, _refineUID);
 		break;
+	case 'R':
+	case 'r':
+		_gtLabeler.refineSavedGT_bv_addFakeArchor(_gps, _veloData, _refineUID, _bv_velo, _flea2);
 	case 27:
 		_gtLabeler.refineSavedGT_bv_startSailing(_gps, _refineUID);
 		break;

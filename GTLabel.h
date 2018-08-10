@@ -29,8 +29,9 @@ public:
 
 	bool getRefineSavedGT_timeDuration(int uid, long long curtime);
 	void refineSavedGT_bv_addArchor(GPSReader& gps, VelodyneData& veloData, int uid);
+	void refineSavedGT_bv_addFakeArchor(GPSReader& gps, VelodyneData& veloData, int uid, cv::Mat& canvas_bv, Flea2Reader& flea2);
 	void refineSavedGT_bv_startSailing(GPSReader& gps, int uid);
-	void addMissingGT_bv(GPSData& gpsData, Flea2Reader& flea2, VelodyneData& veloData, int uid, GTClassInfo gtci);
+	void addMissingGT_bv(GPSReader& gps, Flea2Reader& flea2, VelodyneData& veloData, int uid, GTClassInfo gtci);
 	void refineSavedGT_mono(Flea2Reader& flea2, GPSReader& gps, Flea2Data& monoData, VelodyneData& veloData, cv::Mat& canvas_mono, cv::Mat& canvas_bv, bool& isAddNew, int uid);
 	void visualiseLastArchor(cv::Mat& canvas, GPSReader& gps);
 
@@ -45,8 +46,8 @@ public:
 	cv::Rect getTRect() { return tracker.roi; };
 	GTClassInfo _curInfo;//同时标注多个物体需要修改
 
-	double getLocalYaw(GPSData& gps);
-	double setGlobalYaw(double localYaw, GPSData& gps);
+	double getLocalYaw(const GPSData& gps);
+	double setGlobalYaw(double localYaw, const GPSData& gps);
 
 	int getCurUID() { return tracker.uid; };
 	//int getNewUID() { return curMaxUID++; };
