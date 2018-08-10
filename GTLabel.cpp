@@ -337,7 +337,6 @@ void GTLabel::visualizeSavedGT(Flea2Reader& flea2, GPSReader& gps, Flea2Data & m
 	{
 		//std::cout << "saved gt l number: " << saved_gt.size() << std::endl;
 		//可视化在bv， 重复实现了， 单独提取出来变成函数
-		cv::Point2i bvp[4];
 		for (auto gt : saved_gt)
 		{
 #if reGenerateCorners
@@ -345,19 +344,14 @@ void GTLabel::visualizeSavedGT(Flea2Reader& flea2, GPSReader& gps, Flea2Data & m
 			curInfo = GTClassInfo(gt.objClass);
 			generate2DBBox(objPos, gt.sensorType, flea2, gt.objCorners);
 #endif
-			for (int i = 0; i < 4; i++)
-			{
-				bvp[i].x = gt.objCorners[i].x / _pixelSize + _mapSize / 2;
-				bvp[i].y = _mapSize / 2 - gt.objCorners[i].y / _pixelSize;
-			}
-			cv::line(canvas_bv, bvp[0], bvp[1], CV_RGB(255, 0, 0));
-			cv::line(canvas_bv, bvp[1], bvp[2], CV_RGB(255, 0, 0));
-			cv::line(canvas_bv, bvp[2], bvp[3], CV_RGB(255, 0, 0));
-			cv::line(canvas_bv, bvp[3], bvp[0], CV_RGB(255, 0, 0));
+			gt.draw_bv(canvas_bv, CV_RGB(255, 0, 0));
 			std::stringstream ssTmp;
 			ssTmp.str("");
 			ssTmp << gt.uid << ": " << gt.objClass;
-			cv::putText(canvas_bv, ssTmp.str(), cv::Point2i(bvp[0].x, bvp[0].y + textHeight), cv::FONT_HERSHEY_SIMPLEX, 0.55, CV_RGB(255, 0, 0), 2);
+			cv::Point2i bvp;
+			bvp.x = gt.objCorners[0].x / _pixelSize + _mapSize / 2;
+			bvp.y = _mapSize / 2 - gt.objCorners[0].y / _pixelSize;
+			cv::putText(canvas_bv, ssTmp.str(), cv::Point2i(bvp.x, bvp.y + textHeight), cv::FONT_HERSHEY_SIMPLEX, 0.55, CV_RGB(255, 0, 0), 2);
 		}
 		cv::imshow(winNameBV, canvas_bv);
 	}
@@ -488,17 +482,8 @@ void GTLabel::interaction(accurateBBox abbox, double localYaw, Flea2Reader& flea
 		//可视化在bv， 重复实现了， 单独提取出来变成函数
 		onegt.sensorType = 'L';
 		generate2DBBox(_curInfo, abbox.nearMost, localYaw, onegt.sensorType, flea2, onegt.objCorners);
-		cv::Point2i bvp[4];
-		for (int i = 0; i < 4; i++)
-		{
-			bvp[i].x = onegt.objCorners[i].x / _pixelSize + _mapSize / 2;
-			bvp[i].y = _mapSize / 2 - onegt.objCorners[i].y / _pixelSize;
-		}
-		cv::line(canvas_bv, bvp[0], bvp[1], CV_RGB(255, 0, 0));
-		cv::line(canvas_bv, bvp[1], bvp[2], CV_RGB(255, 0, 0));
-		cv::line(canvas_bv, bvp[2], bvp[3], CV_RGB(255, 0, 0));
-		cv::line(canvas_bv, bvp[3], bvp[0], CV_RGB(255, 0, 0));
-	}
+		onegt.draw_bv(canvas_bv, CV_RGB(255, 0, 0));
+}
 	cv::imshow(winNameMono, canvas_mono);
 	cv::imshow(winNameBV, canvas_bv);
 

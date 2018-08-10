@@ -47,6 +47,29 @@ void OneGroundTruth::draw(cv::Mat & canvas, cv::Scalar color)
 	cv::line(canvas, objCorners[3], objCorners[0], color);
 }
 
+void OneGroundTruth::draw_bv(cv::Mat & canvas, cv::Scalar color)
+{
+	cv::Point2i dir(0, 0);
+	cv::Point2i center(0, 0);
+	cv::Point2i bvp[4];
+	for (int i = 0; i < 4; i++)
+	{
+		bvp[i].x = objCorners[i].x / _pixelSize + _mapSize / 2;
+		bvp[i].y = _mapSize / 2 - objCorners[i].y / _pixelSize;
+		center += bvp[i];
+	}
+	center /= 4;
+	dir = (bvp[2] + bvp[1]) - center;
+	
+	cv::line(canvas, bvp[2], dir, CV_RGB(255, 0, 0));
+	cv::line(canvas, bvp[1], dir, CV_RGB(255, 0, 0));
+
+	cv::line(canvas, bvp[0], bvp[1], CV_RGB(255, 0, 0));
+	cv::line(canvas, bvp[1], bvp[2], CV_RGB(255, 0, 0));
+	cv::line(canvas, bvp[2], bvp[3], CV_RGB(255, 0, 0));
+	cv::line(canvas, bvp[3], bvp[0], CV_RGB(255, 0, 0));
+}
+
 double OneGroundTruth::generateYawFromCorners()
 {
 	double dx, dy;

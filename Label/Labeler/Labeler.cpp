@@ -415,26 +415,18 @@ namespace fang
 				generate2DBBox(curInfo, centerP, selectorParams.yaw, gt.sensorType, flea2, gt.objCorners);
 
 				gps.VehicleP2GlobalP(centerP, gt.objPos);
-				std::cout << "debug0 :" << centerP << std::endl;
-				std::cout << "debug1 :" << gt.objPos << std::endl;
-				std::cout << "debug2 :" << gt.generateYawFromCorners() * 180.0 / CV_PI << std::endl;
+				//std::cout << "debug0 :" << centerP << std::endl;
+				//std::cout << "debug1 :" << gt.objPos << std::endl;
+				//std::cout << "debug2 :" << gt.generateYawFromCorners() * 180.0 / CV_PI << std::endl;
 
 				//为了测试计算朝向对不对
 				//std::cout << "debug0 :" << rot_angle << std::endl;
 				//std::cout << "debug1 :" << onegt.objCorners[1] << "|||" << onegt.objCorners[2] << std::endl;
 				//std::cout << "debug2 :" << atan2(onegt.objCorners[2].y - onegt.objCorners[1].y, onegt.objCorners[2].x - onegt.objCorners[1].x) << std::endl;
 
-				cv::Point2i bvp[4];
-				for (int i = 0; i < 4; i++)
-				{
-					bvp[i].x = gt.objCorners[i].x / _pixelSize + _mapSize / 2;
-					bvp[i].y = _mapSize / 2 - gt.objCorners[i].y / _pixelSize;
-				}
-				cv::line(selectorParams.image, bvp[0], bvp[1], CV_RGB(255, 0, 0));
-				cv::line(selectorParams.image, bvp[1], bvp[2], CV_RGB(255, 0, 0));
-				cv::line(selectorParams.image, bvp[2], bvp[3], CV_RGB(255, 0, 0));
-				cv::line(selectorParams.image, bvp[3], bvp[0], CV_RGB(255, 0, 0));
+				gt.draw_bv(selectorParams.image, CV_RGB(255, 0, 0));
 				cv::imshow(winNameBV, selectorParams.image);
+
 				///e
 			}
 
@@ -680,17 +672,7 @@ namespace fang
 				//std::cout << "debug0 :" << rot_angle << std::endl;
 				//std::cout << "debug1 :" << onegt.objCorners[1] << "|||" << onegt.objCorners[2] << std::endl;
 				//std::cout << "debug2 :" << atan2(onegt.objCorners[2].y - onegt.objCorners[1].y, onegt.objCorners[2].x - onegt.objCorners[1].x) << std::endl;
-
-				cv::Point2i bvp[4];
-				for (int i = 0; i < 4; i++)
-				{
-					bvp[i].x = onegt.objCorners[i].x / _pixelSize + _mapSize / 2;
-					bvp[i].y = _mapSize / 2 - onegt.objCorners[i].y / _pixelSize;
-				}
-				cv::line(selectorParams.canvas_bv, bvp[0], bvp[1], CV_RGB(255, 0, 0));
-				cv::line(selectorParams.canvas_bv, bvp[1], bvp[2], CV_RGB(255, 0, 0));
-				cv::line(selectorParams.canvas_bv, bvp[2], bvp[3], CV_RGB(255, 0, 0));
-				cv::line(selectorParams.canvas_bv, bvp[3], bvp[0], CV_RGB(255, 0, 0));
+				onegt.draw_bv(selectorParams.canvas_bv, CV_RGB(255, 0, 0));
 				cv::imshow(winNameBV, selectorParams.canvas_bv);
 				///e
 			}
