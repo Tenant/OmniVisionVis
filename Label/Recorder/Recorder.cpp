@@ -262,6 +262,8 @@ bool Recorder::save(const string& filename)
 	}
 	outputFile.close();
 
+	printf("saved!\n");
+
 	return true;
 }
 

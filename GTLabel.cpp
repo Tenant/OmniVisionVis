@@ -132,7 +132,7 @@ void GTLabel::visualiseLastArchor(cv::Mat& canvas, GPSReader& gps)
 		bvp.x = vehicleP.x / _pixelSize + _mapSize / 2;
 		bvp.y = _mapSize / 2 - vehicleP.y / _pixelSize;
 
-		cv::circle(canvas, bvp, 5, CV_RGB(0, 0, 255));
+		cv::circle(canvas, bvp, 5, CV_RGB(255, 255, 0));
 		cv::imshow(winNameBV, canvas);
 		//cv::line(canvas, bvp[3], bvp[0], CV_RGB(255, 0, 0));
 		/*std::stringstream ssTmp;
@@ -175,6 +175,7 @@ void GTLabel::refineSavedGT_bv_addArchor(GPSReader& gps, VelodyneData& veloData,
 		fakeGPSPos.x = recorder.gts[index].objPos.x;
 		fakeGPSPos.y = recorder.gts[index].objPos.y;
 		fakeGPSPos.yaw = recorder.gts[index].generateYawFromCorners();
+		fakeGPSPos.yaw = setGlobalYaw(fakeGPSPos.yaw, gps.getCurrentData());
 
 		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, fakeGPSPos));
 	}
@@ -195,6 +196,7 @@ void GTLabel::refineSavedGT_bv_addFakeArchor(GPSReader & gps, VelodyneData & vel
 
 		cv::Rect roi;
 		fang::selectROI(roi, fakeGPSPos.yaw, gt, canvas_bv, flea2, gps);
+		fakeGPSPos.yaw = setGlobalYaw(fakeGPSPos.yaw, gps.getCurrentData());
 		fakeGPSPos.x = gt.objPos.x;
 		fakeGPSPos.y = gt.objPos.y;
 
@@ -218,7 +220,7 @@ void GTLabel::modifyOneSavedGT(OneGroundTruth& gt, GPSData refinedCenter, GPSRea
 		gt.objPos.x = refinedCenter.x;
 		gt.objPos.y = refinedCenter.y;
 		//计算四个角点	
-		setGlobalYaw(refinedCenter.yaw, gps.getCurrentData());
+		//setGlobalYaw(refinedCenter.yaw, gps.getCurrentData());
 		double localy = getLocalYaw(gps.getCurrentData());
 		GTClassInfo gtci = GTClassInfo(gt.objClass);
 		cv::Point3d fake3dP;
@@ -304,8 +306,16 @@ void GTLabel::addMissingGT_bv(GPSReader& gps, Flea2Reader& flea2, VelodyneData& 
 	}
 	else if (time > _refineEndTime)
 	{
-		recorder.save(outputFile);
-		exit(0);
+		printf("esc to exit and save\n");
+		char key = cv::waitKey(0);
+		if (key == 27)
+			recorder.save(outputFile);
+		else
+		{
+			printf("did not save!!!\n");
+			system("pause");
+			exit(0);
+		}
 	}
 }
 
@@ -502,6 +512,7 @@ void GTLabel::interaction(accurateBBox abbox, double localYaw, Flea2Reader& flea
 		break;
 	case 27:
 		lastStatus = TS_EXIT;
+		recorder.save(outputFile);
 		break;
 	case 'g':
 	case 'G':
@@ -585,7 +596,6 @@ void GTLabel::labelSingleFrame(LadybugReader& ladybug, Flea2Reader& flea2, GPSDa
 		break;
 	case TS_EXIT:
 		tracker.isInit = false;
-		recorder.save(outputFile);
 		break;
 	}
 

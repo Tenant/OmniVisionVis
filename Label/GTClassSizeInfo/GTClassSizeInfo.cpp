@@ -35,7 +35,7 @@ cv::Rect MatchingMethod(cv::Mat img, cv::Mat templ)
 
 	/// 让我看看您的最终结果
 	float score = result.at<float>(matchLoc);
-	std::cout << "score:" << score << std::endl;
+	//std::cout << "score:" << score << std::endl;
 	rectangle(img_display, matchLoc, cv::Point(matchLoc.x + templ.cols, matchLoc.y + templ.rows), cv::Scalar::all(0), 2, 8, 0);
 	rectangle(result, matchLoc, cv::Point(matchLoc.x + templ.cols, matchLoc.y + templ.rows), cv::Scalar::all(0), 2, 8, 0);
 

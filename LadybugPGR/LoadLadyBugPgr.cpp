@@ -356,8 +356,8 @@ unsigned long int LadybugReader::getPgrTime()
 
 long int LadybugReader::getulMicroSeconds()
 {
-	return image.timeStamp.ulCycleSeconds;
-//	return image.timeStamp.ulMicroSeconds;
+	//return image.timeStamp.ulCycleSeconds;
+	return image.timeStamp.ulMicroSeconds;
 
 }
 

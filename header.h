@@ -12,11 +12,12 @@
 #define TBB_EXT_STR ".lib"
 #endif
 
-#pragma comment(lib, "opencv_core"	CV_VERSION_STR CV_EXT_STR)
+/*#pragma comment(lib, "opencv_core"	CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_highgui"	CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_imgproc"	CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_imgcodecs"	CV_VERSION_STR CV_EXT_STR)
-#pragma comment(lib, "opencv_videoio" CV_VERSION_STR CV_EXT_STR)
+#pragma comment(lib, "opencv_videoio" CV_VERSION_STR CV_EXT_STR)*/
+#pragma comment(lib, "opencv_world"	CV_VERSION_STR CV_EXT_STR)
 
 #define ymlGetVar(fs, xxx) fs[#xxx] >> xxx
 

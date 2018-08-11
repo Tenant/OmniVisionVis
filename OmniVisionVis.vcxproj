@@ -28,26 +28,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\lib\opencv3\build\x64\vc12\lib;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;C:\Program Files\Point Grey Research\Ladybug\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\lib\opencv3\build\x64\vc12\lib;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;C:\Program Files\Point Grey Research\Ladybug\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
