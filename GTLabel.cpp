@@ -176,6 +176,7 @@ void GTLabel::refineSavedGT_bv_addArchor(GPSReader& gps, VelodyneData& veloData,
 		fakeGPSPos.y = recorder.gts[index].objPos.y;
 		fakeGPSPos.yaw = recorder.gts[index].generateYawFromCorners();
 		fakeGPSPos.yaw = setGlobalYaw(fakeGPSPos.yaw, gps.getCurrentData());
+		fakeGPSPos.timestamp = veloData.timestamp;
 
 		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, fakeGPSPos));
 	}
@@ -189,7 +190,7 @@ void GTLabel::refineSavedGT_bv_addFakeArchor(GPSReader & gps, VelodyneData & vel
 		OneGroundTruth gt = recorder.gts[index];
 
 		double yawOfThisGT = gt.generateYawFromCorners();
-		setGlobalYaw(yawOfThisGT, gps.getCurrentData());//实时更新globalYaw
+		setGlobalYaw(yawOfThisGT, gps.getCurrentData());//实时更新globalYaw, 这边相当于只是算出来全局的yaw 然后去插值用
 		gt.objYaw = getLocalYaw(gps.getCurrentData());
 
 		GPSData fakeGPSPos;
@@ -199,6 +200,7 @@ void GTLabel::refineSavedGT_bv_addFakeArchor(GPSReader & gps, VelodyneData & vel
 		fakeGPSPos.yaw = setGlobalYaw(fakeGPSPos.yaw, gps.getCurrentData());
 		fakeGPSPos.x = gt.objPos.x;
 		fakeGPSPos.y = gt.objPos.y;
+		fakeGPSPos.timestamp = veloData.timestamp;
 
 		_mapArchorGPSPositions.insert(std::make_pair(veloData.timestamp, fakeGPSPos));
 
@@ -220,8 +222,9 @@ void GTLabel::modifyOneSavedGT(OneGroundTruth& gt, GPSData refinedCenter, GPSRea
 		gt.objPos.x = refinedCenter.x;
 		gt.objPos.y = refinedCenter.y;
 		//计算四个角点	
-		//setGlobalYaw(refinedCenter.yaw, gps.getCurrentData());
+		setGlobalYaw(refinedCenter.yaw + gps.getCurrentData().yaw, gps.getCurrentData());//这里才是把插好值的全局的yaw转换到局部的yaw
 		double localy = getLocalYaw(gps.getCurrentData());
+		std::cout << gt.objYaw*180.0 / CV_PI << ' ' << localy*180.0 / CV_PI << std::endl;
 		GTClassInfo gtci = GTClassInfo(gt.objClass);
 		cv::Point3d fake3dP;
 		gps.GlobalP2VehicleP(gt.objPos, fake3dP);

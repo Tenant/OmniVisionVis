@@ -357,7 +357,6 @@ GPSData getInterpolatedGPS_YawXY(long long time, GPSData prev, GPSData next)
 		if (time > next.timestamp)
 			return next;
 		double factor = double(time - prev.timestamp) / double(next.timestamp - prev.timestamp);
-		//std::cout << factor << std::endl;
 
 		GPSData ip;
 		ip.timestamp = time;
@@ -370,6 +369,8 @@ GPSData getInterpolatedGPS_YawXY(long long time, GPSData prev, GPSData next)
 		double prevYaw = prev.yaw;
 		double nextYaw = next.yaw;
 		ip.yaw = prevYaw + shortAngleDist(prevYaw, nextYaw)*factor;
+
+		std::cout << factor << " " << ip.yaw << std::endl;
 
 		return ip;
 }
