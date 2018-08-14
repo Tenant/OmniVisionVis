@@ -71,28 +71,29 @@ bool OmniVision::getData()
 {
 	int activePriSensorID;//当前时间戳最新的主传感器
 	activePriSensorID = 0;//当前时间戳最新的主传感器
-	if (!_priSensors[activePriSensorID]->getTime(_currentTime))//读取0号传感器的当前时间
-		return false;//这种情况就直接去掉吧...
-	for (int i = 1 ; i < _priSensors.size(); i++)
-	{
-		long long t;
-		if (_priSensors[i]->getTime(t))
-		{
-			if (t < _currentTime)//得到最慢的那个传感器id
-			{
-				_currentTime = t;
-				activePriSensorID = i;
-			}
-		}
-	}
 
-	if (!_priSensors[activePriSensorID]->grabNextData())//最慢的传感器读取一帧新数据
-		return false;
 
 	while (_currentTime < _startTime)
 	{
+		if (!_priSensors[activePriSensorID]->getTime(_currentTime))//读取0号传感器的当前时间
+			return false;//这种情况就直接去掉吧...
+		for (int i = 1; i < _priSensors.size(); i++)
+		{
+			long long t;
+			if (_priSensors[i]->getTime(t))
+			{
+				if (t < _currentTime)//得到最慢的那个传感器id
+				{
+					_currentTime = t;
+					activePriSensorID = i;
+				}
+			}
+		}
+
+		if (!_priSensors[activePriSensorID]->grabNextData())//最慢的传感器读取一帧新数据
+			return false;
+
 		std::cout << _currentTime << std::endl;
-		return getData();//递归跳到指定时间
 	}
 
 	for (auto s : _subSensors)
