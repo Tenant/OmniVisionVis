@@ -522,7 +522,7 @@ namespace fang
 		}
 		visualROI = cutValidROI(selectorParams.box, canvas_pano.size());
 		// show the image and give feedback to user
-		imshow(winNamePano, canvas_pano(visualROI));
+		imshow(winNamePano + "_extra", canvas_pano(visualROI));
 		cv::waitKey();
 		// copy the data, rectangle should be drawn in the fresh image
 		selectorParams.image = canvas_pano(visualROI).clone();
@@ -535,7 +535,7 @@ namespace fang
 		// end selection process on SPACE (32) or ENTER (13)
 		while (!(key == 32 || key == 13)) {
 			// select the object
-			cv::setMouseCallback(winNamePano, mouseHandler, (void *)&selectorParams);
+			cv::setMouseCallback(winNamePano + "_extra", mouseHandler, (void *)&selectorParams);
 
 			// fine tuning bbox
 			switch (key)
@@ -678,7 +678,7 @@ namespace fang
 			}
 
 			// show the image bouding box
-			cv::imshow(winNamePano, selectorParams.image);
+			cv::imshow(winNamePano + "_extra", selectorParams.image);
 
 			// reset the image
 			selectorParams.image = canvas_pano(visualROI).clone();

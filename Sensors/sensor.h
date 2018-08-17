@@ -16,6 +16,23 @@ public:
 	virtual ~SensorConfig();
 	virtual bool init(const std::string& path);
 	cv::FileStorage fs;
+	
+	template<typename T>
+	bool read(std::string name, T& t)
+	{
+		cv::FileNode tmp = fs[name];
+		bool isFound = !tmp.isNone();
+		if (isFound)
+		{
+			tmp >> t;
+		}
+		//else似乎不能同时读写
+		//{
+		//	fs.write(name, t);
+		//}
+		return isFound;
+	};
+
 };
 
 class SensorReader
@@ -29,3 +46,4 @@ public:
 	//virtual SensorData getCurrentData() { return SensorData(); };
 private:
 };
+

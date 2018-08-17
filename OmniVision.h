@@ -16,13 +16,15 @@
 #define isLabel 1
 
 //激光可见范围40米内
-#define bvVisibleDistance 40
-//图像可见范围40像素以上
-#define imageVisibleHeight 25
+//#define bvVisibleDistance 40
+//#define imageVisibleHeight 25
 
 class OmniVision
 {
 public:
+	//图像可见范围40像素以上
+	OmniVision() : _imageVisibleHeight(25) {};
+
 	bool init();
 	bool getData();
 	void release();
@@ -77,6 +79,7 @@ public:
 	int _refineStep;//0 是粗标定， 1 是细标定图像， 2是补全缺失的激光，3是细标定激光及GPS
 
 private:
+	int _imageVisibleHeight;
 
 	int _waitKeyTime;
 	long long _currentTime;//针对多个主传感器而设置的

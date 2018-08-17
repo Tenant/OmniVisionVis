@@ -12,6 +12,13 @@ bool OmniVision::init()
 	fs["refineUID"] >> _refineUID;
 	fs["refineObjClass"] >> _refineObjClass;
 	fs["responseTime"] >> _waitKeyTime;
+
+	cv::FileNode fnTmp = fs["minImageVisibleHeight"];
+	if (!fnTmp.isNone())
+	{
+		fnTmp >> _imageVisibleHeight;
+	}
+
 	fs.release();
 
 	std::istringstream is(stringTimeTmp);
@@ -323,7 +330,7 @@ bool OmniVision::generateOneGT_withPanoROI(OneGroundTruth& onegt)
 	//加一个判断是否在图像可见范围内
 	if (isSensorTypeMatched(onegt, 'C')) 
 	{
-		if (abs(onegt.objCorners[0].y - onegt.objCorners[2].y) < imageVisibleHeight)
+		if (abs(onegt.objCorners[0].y - onegt.objCorners[2].y) < _imageVisibleHeight)
 		{
 			std::cout << _gtLabeler.getCurUID() << " gt too small\n";
 			return false;
@@ -390,7 +397,7 @@ bool OmniVision::generateOneGT_withMonoROI(OneGroundTruth& onegt)
 	//加一个判断是否在图像可见范围内
 	if (isSensorTypeMatched(onegt, 'C'))
 	{
-		if (abs(onegt.objCorners[0].y - onegt.objCorners[2].y) < imageVisibleHeight)
+		if (abs(onegt.objCorners[0].y - onegt.objCorners[2].y) < _imageVisibleHeight)
 		{
 			std::cout << _gtLabeler.getCurUID() << " gt too small\n";
 			return false;
