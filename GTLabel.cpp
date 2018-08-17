@@ -224,7 +224,7 @@ void GTLabel::modifyOneSavedGT(OneGroundTruth& gt, GPSData refinedCenter, GPSRea
 		//计算四个角点	
 		setGlobalYaw(refinedCenter.yaw + gps.getCurrentData().yaw, gps.getCurrentData());//这里才是把插好值的全局的yaw转换到局部的yaw
 		double localy = getLocalYaw(gps.getCurrentData());
-		std::cout << gt.objYaw*180.0 / CV_PI << ' ' << localy*180.0 / CV_PI << std::endl;
+		//std::cout << gt.objYaw*180.0 / CV_PI << ' ' << localy*180.0 / CV_PI << std::endl;
 		GTClassInfo gtci = GTClassInfo(gt.objClass);
 		cv::Point3d fake3dP;
 		gps.GlobalP2VehicleP(gt.objPos, fake3dP);
