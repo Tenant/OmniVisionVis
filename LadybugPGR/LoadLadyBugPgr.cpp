@@ -58,6 +58,47 @@ const LadybugData& LadybugReader::getCurrentData()
 	return currentData;
 }
 
+int LadybugReader::binarySearchbyTime(const long long t)
+{
+	int start = 0;
+	int end = imgnums - 1;
+	unsigned long curTime, startTime, endTime;
+
+	LadybugError error;
+	error = ladybugGoToImage(readContext, start);
+	if (error != LADYBUG_OK) return -1;
+	error = ladybugReadImageFromStream(readContext, &image);
+	if (error != LADYBUG_OK) return -1;
+	startTime = getPgrTime();
+	if (t < startTime) return start;
+
+	error = ladybugGoToImage(readContext, end);
+	if (error != LADYBUG_OK) return -1;
+	error = ladybugReadImageFromStream(readContext, &image);
+	if (error != LADYBUG_OK) return -1;
+
+	endTime = getPgrTime();
+	if (t > endTime) return end;
+	
+	int pos = double(t - startTime) / double(endTime - startTime)*double(imgnums);
+	do
+	{
+		error = ladybugGoToImage(readContext, pos);
+		if (error != LADYBUG_OK) return -1;
+		error = ladybugReadImageFromStream(readContext, &image);
+		if (error != LADYBUG_OK) return -1;
+		curTime = getPgrTime();
+		if (t > curTime)
+		{
+			prevTime = curTime;
+			return pos;
+		}
+		pos -= 10;//step=10Ëæ±ãÐ´µÄ
+	} while (true);
+
+	;
+}
+
 bool LadybugReader::grabData(const long long t)
 {
 	//long long t = dt.timestamp;
@@ -70,6 +111,10 @@ bool LadybugReader::grabData(const long long t)
 	{
 		return false;
 	}
+
+	num = binarySearchbyTime(t);
+	if (num == -1)
+		return false;
 
 	LadybugError error;
 	long curTime = prevTime;

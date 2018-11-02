@@ -52,7 +52,7 @@ private:
 	LadybugProcessedImage processedImage;
 	long prevTime;
 	int cur;
-	unsigned int imgnums;
+	unsigned int imgnums;//总帧数
 
 #if isRectifyNeeded
 	unsigned int RECTIFIED_IMAGE_COLUMNS;
@@ -64,6 +64,9 @@ public:
 	~LadybugReader();
 	
 	virtual bool init(const std::string& configfile);
+
+	int binarySearchbyTime(const long long t);//返回帧数
+
 	virtual bool grabData(const long long t);
 	virtual bool grabNextData();
 	virtual bool getTime(long long& t);
