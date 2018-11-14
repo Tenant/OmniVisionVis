@@ -1,6 +1,7 @@
 %YAML:1.0
-PGRFilename: "K:/LabData/kyxz2018/2018Eval/OurRawData/Raw/LadybugRaw/ladybug_12193151_20180914_152750-000000.pgr"
-velodyneFilename:"K:/LabData/kyxz2018/2018Eval/OurRawData/2018-09-14-15-27-50.pcap"
+PGRFilename: "K:/LabData/kyxz2018/2018Eval/OurProcessedData/Pcap_PGR_Sequence/patrol-000000.pgr"
+velodyneFilename:"K:/LabData/kyxz2018/2018Eval/OurProcessedData/Pcap_PGR_Sequence/test.pcap"
+#velodyneFilename:"K:/LabData/kyxz2018/2018Eval/OurRawData/SplitPcap/test.pcap"
 
 flea2Path: "K:/LabData/kyxz2018/2018Eval/OurRawData/MonoImages_2018_09_14_15_27_51/"
 lmsFilename: "K:/LabData/kyxz2018/2018Eval/OurRawData/2018-09-14-15-27-49.lms"
@@ -11,7 +12,7 @@ veloInstrinsicParamsFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sa
 veloExtrinsicParamsFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-HDL32-E.txt"
 lmsExtrinsicParamsFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-Laser.txt"
 ladybugCalibFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-Ladybug.txt"
-flea2CalibFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-Camera.camera"
+flea2CalibFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-Camera-20181111.camera"
 #flea2CalibFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/test_ex.camera"
 flea2ExtrinsicParamsFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-Laser.txt"
 gpsExtrinsicParamsFilename: "K:/LabData/kyxz2018/20180727/calib/CalibParams/Sampledata-001-GPS.txt"
@@ -35,16 +36,16 @@ gpsMethod: "GPS_NEAREST"
 #b2 400 (uid 12)
 #b3 800 (uid 4)
 #skipFrames: 0
-#startTime: "0"
-startTime: "56783759"
-responseTime: 10
+startTime: "0"
+#startTime: "56783759"
+responseTime: 0
 
-refineStep: 0
-refineUID: 14
-refineObjClass: 'V'
+refineStep: 3
+refineUID: 0
+refineObjClass: 'B'
 
 minValidVeloHeight: 0.0
 maxValidVeloHeight: 1.0
-veloColor: 0
+veloColor: 1
 
 minImageVisibleHeight: 25

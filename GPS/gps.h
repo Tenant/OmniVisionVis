@@ -51,6 +51,8 @@ public:
 	double maxX, minX, maxY, minY;
 	CoordinateTrans trans;
 private:
+	std::vector<GPSData>::iterator lastSearchPosition;
+
 	bool isReferencePointSet;
 	CoordinateConvertion geographicCoordTrans;
 	GPSData currentData;
