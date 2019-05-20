@@ -18,7 +18,7 @@ bool LadybugVideo::init(std::string t, std::string v)
 		return false;
 	std::ifstream timestampfile;
 	timestampfile.open(t);
-	maxPos = vc.get(CV_CAP_PROP_FRAME_COUNT);
+	maxPos = vc.get(cv::CAP_PROP_FRAME_COUNT);
 
 	long time;
 	if (!timestampfile.is_open())
@@ -37,7 +37,7 @@ bool LadybugVideo::getImageByTime(long t, cv::OutputArray img)
 {
 	long index;
 	long timeWindow = 1000;
-	if(t < timestamps[0] - timeWindow || t > timestamps[timestamps.size() - 1] + timeWindow)
+	if (t < timestamps[0] - timeWindow || t > timestamps[timestamps.size() - 1] + timeWindow)
 		return false;
 	if (!findImageByTime(t, index))//È·¶¨Ò»ÏÂ³¬¹ýindex»áreturn false
 	{
@@ -65,7 +65,7 @@ bool LadybugVideo::getImageByTime(long t, cv::OutputArray img)
 bool LadybugVideo::findImageByTime(long t, long & nearest_time)//Õâ¸ö¶þ·Ö²éÕÒÓÐµãÐ¡ÎÊÌâ£¬leftºÍright×îºóµÄ´óÐ¡¶¼²»Ò»¶¨
 {
 	int size = timestamps.size();
-	if (size<2)
+	if (size < 2)
 		return 0;
 	int left = 0, right = size - 1;
 	int mid, nearst_index;
@@ -97,7 +97,7 @@ bool LadybugVideo::findImageByTime(long t, long & nearest_time)//Õâ¸ö¶þ·Ö²éÕÒÓÐµ
 	else
 		nearst_index = left;
 
-	if (abs(timestamps[nearst_index] - t)<= 100) {
+	if (abs(timestamps[nearst_index] - t) <= 100) {
 		nearest_time = nearst_index;
 		return 1;
 	}

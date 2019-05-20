@@ -1,19 +1,21 @@
 #pragma once
+#include "Velodyne/interface_zhao/velo_dsvl.h"
 #include "Velodyne/velodynedatainterface.h"
 #include "GPS/gps.h"
 #include "LadybugImages/LadybugImages.h"
 #include "LadybugPGR/LoadLadyBugPgr.h"
 #include "LadybugVideo/LadybugVideo.h"
+#include "LadybugMask/LadybugMask.h"
 #include "Flea2/flea2reader.h"
 #include "lms/urg.h"
 #include "misc.h"
 #include "header.h"
 #include "Sensors/sensor.h"
-#include "GTLabel.h"
 #include "getVeloPosFromImage.h"
+#include "TrackedObj/trackedObj.h"
 
 #define isCalib 0
-#define isLabel 1
+#define isLabel 0
 
 //激光可见范围40米内
 //#define bvVisibleDistance 40
@@ -31,45 +33,29 @@ public:
 
 	void showLMS();
 	void showVelo();
-	void showMap();
 
-	void showSavedLabel();
-	void label();
+	bool keyborad();
 
-	void refineMonoLabel();
-	void refineGlobalBVLabel();
-	void addMissingGlobalBVLabel();
-
-	bool generateOneGT_withPanoROI(OneGroundTruth& onegt);
-	bool generateOneGT_withMonoROI(OneGroundTruth& onegt);
-	bool generateOneGT_withBVPoint(OneGroundTruth& onegt);
-
-	void keyborad();
-
-	void testImageP2VehicleP();
 private:
 	long long _startTime;
 	std::vector<SensorReader*> _priSensors;//主传感器，保证不会漏掉任何一帧
 	std::vector<SensorReader*> _subSensors;//副传感器
 
 	LadybugReader _ladybug;
-	VelodyneReader _velodyne;
-	GPSReader _gps;
-	Flea2Reader _flea2;
-	URGReader _urg;
+	//VelodyneReader _velodyne;
+	VeloDSVLReader _velodyne;
+	LadybugMaskReader _mask;
 
 	LadybugData _panoData;
-	VelodyneData _veloData;
-	GPSData _gpsData;
-	GPSData _gpsPrevData;
-	Flea2Data _monoData;
-	URGData _urgData;
+	//VelodyneData _veloData;
+	VeloDSVLData _veloData;
 
-	GTLabel _gtLabeler;
+	LadybugMaskData _maskData;
 
 	cv::VideoWriter _VW_pano;
 	cv::VideoWriter _VW_mono;
 	cv::VideoWriter _VW_bv;
+	cv::VideoWriter _VW_mask;
 
 	cv::Mat _pano_velo;
 	cv::Mat _mono_velo;

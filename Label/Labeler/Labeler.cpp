@@ -87,7 +87,7 @@ namespace fang
 			// start to select the bounding box
 		case cv::EVENT_LBUTTONDOWN:
 			data->isDrawing = true;
-			data->box = cvRect(x, y, 0, 0);
+			data->box = cv::Rect(x, y, 0, 0);
 			data->center = Point2f((float)x, (float)y);
 			break;
 
@@ -162,7 +162,7 @@ namespace fang
 		// end selection process on SPACE (32) or ENTER (13)
 		while (!(key == 32 || key == 13)){
 			// select the object
-			setMouseCallback(windowName, mouseHandler, (void *)&selectorParams);
+			cv::setMouseCallback(windowName, mouseHandler, (void *)&selectorParams);
 
 			// fine tuning bbox
 			switch (key)

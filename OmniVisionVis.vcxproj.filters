@@ -46,23 +46,20 @@
     <Filter Include="Sensors">
       <UniqueIdentifier>{f731de2a-8e45-4615-b912-3b0a794f1b3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Label">
-      <UniqueIdentifier>{dc9e5429-9c17-452f-8b39-9aac67b2da4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Label\Tracker">
-      <UniqueIdentifier>{b09bb7ba-98a5-4164-933d-fd1f84f22964}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Label\Labeler">
-      <UniqueIdentifier>{4ebaf063-d3fd-4ae1-993a-99c7fa433298}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Label\Recorder">
-      <UniqueIdentifier>{0973b955-136d-4b4c-9bcd-d465c4ad3fda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Transform_fang\GPS">
       <UniqueIdentifier>{6b6a5d7a-8692-41e6-9d6b-3eab69fcba01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Label\GTClassSizeInfo">
-      <UniqueIdentifier>{206e26cd-ca64-4d4e-a360-d42dffb9bf60}</UniqueIdentifier>
+    <Filter Include="Ladybug\Mask">
+      <UniqueIdentifier>{d61cd136-dfd0-443d-a319-3ff594ba78c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TrackedObj">
+      <UniqueIdentifier>{8abeb87b-0ae5-427e-b26d-33b4f039bedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Velodyne\calib">
+      <UniqueIdentifier>{94070a6c-76c8-40a4-8743-6800b4e13b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Velodyne\calib\xml">
+      <UniqueIdentifier>{12577e10-5534-4488-8957-e6d36dadb929}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,32 +108,35 @@
     <ClCompile Include="LMS\urg.cpp">
       <Filter>LMS</Filter>
     </ClCompile>
-    <ClCompile Include="Label\Labeler\Labeler.cpp">
-      <Filter>Label\Labeler</Filter>
-    </ClCompile>
-    <ClCompile Include="Label\Tracker_KCF\fhog.cpp">
-      <Filter>Label\Tracker</Filter>
-    </ClCompile>
-    <ClCompile Include="Label\Tracker_KCF\kcftracker.cpp">
-      <Filter>Label\Tracker</Filter>
-    </ClCompile>
-    <ClCompile Include="Label\Recorder\Recorder.cpp">
-      <Filter>Label\Recorder</Filter>
-    </ClCompile>
-    <ClCompile Include="GTLabel.cpp">
-      <Filter>Label</Filter>
-    </ClCompile>
     <ClCompile Include="Transform_fang\GPS\coordinateconvertion.cpp">
       <Filter>Transform_fang\GPS</Filter>
     </ClCompile>
     <ClCompile Include="getVeloPosFromImage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Label\GTClassSizeInfo\GTClassSizeInfo.cpp">
-      <Filter>Label\GTClassSizeInfo</Filter>
-    </ClCompile>
     <ClCompile Include="imageShifter.cpp">
       <Filter>Ladybug</Filter>
+    </ClCompile>
+    <ClCompile Include="LadybugMask\LadybugMask.cpp">
+      <Filter>Ladybug\Mask</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackedObj\trackedObj.cpp">
+      <Filter>TrackedObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\interface_zhao\velo_dsvl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\veloxmlcalibinterface.cpp">
+      <Filter>Velodyne\calib</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\intrinsic\tinyxml2.cpp">
+      <Filter>Velodyne\calib\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\intrinsic\velointrinsic.cpp">
+      <Filter>Velodyne\calib\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="Velodyne\extrinsic\veloextrinsic.cpp">
+      <Filter>Velodyne\calib\xml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,48 +185,38 @@
     <ClInclude Include="LMS\urg.h">
       <Filter>LMS</Filter>
     </ClInclude>
-    <ClInclude Include="Label\Labeler\Labeler.h">
-      <Filter>Label\Labeler</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Tracker_KCF\ffttools.hpp">
-      <Filter>Label\Tracker</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Tracker_KCF\fhog.hpp">
-      <Filter>Label\Tracker</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Tracker_KCF\kcftracker.hpp">
-      <Filter>Label\Tracker</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Tracker_KCF\labdata.hpp">
-      <Filter>Label\Tracker</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Tracker_KCF\recttools.hpp">
-      <Filter>Label\Tracker</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Tracker_KCF\tracker.h">
-      <Filter>Label\Tracker</Filter>
-    </ClInclude>
-    <ClInclude Include="Label\Recorder\Recorder.h">
-      <Filter>Label\Recorder</Filter>
-    </ClInclude>
-    <ClInclude Include="GTLabel.h">
-      <Filter>Label</Filter>
-    </ClInclude>
     <ClInclude Include="Transform_fang\GPS\coordinateconvertion.h">
       <Filter>Transform_fang\GPS</Filter>
     </ClInclude>
     <ClInclude Include="getVeloPosFromImage.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Label\GTClassSizeInfo\GTClassSizeInfo.h">
-      <Filter>Label\GTClassSizeInfo</Filter>
-    </ClInclude>
     <ClInclude Include="imageShifter.h">
       <Filter>Ladybug</Filter>
+    </ClInclude>
+    <ClInclude Include="LadybugMask\LadybugMask.h">
+      <Filter>Ladybug\Mask</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackedObj\trackedObj.h">
+      <Filter>TrackedObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\interface_zhao\velo_dsvl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\veloxmlcalibinterface.h">
+      <Filter>Velodyne\calib</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\intrinsic\tinyxml2.h">
+      <Filter>Velodyne\calib\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\intrinsic\velointrinsic.h">
+      <Filter>Velodyne\calib\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="Velodyne\extrinsic\veloextrinsic.h">
+      <Filter>Velodyne\calib\xml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.yml" />
-    <None Include="C:\Users\Kun\AppData\Local\Temp\报告20180807-2121.diagsession" />
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@ cv::Rect MatchingMethod(cv::Mat img, cv::Mat templ)
 	cv::Mat result(result_cols, result_rows, CV_32FC1);
 
 	/// 进行匹配和标准化
-	int match_method = CV_TM_CCOEFF_NORMED;
+	int match_method = cv::TM_CCOEFF_NORMED;
 	matchTemplate(img, templ, result, match_method);
 	//normalize(result, result, 0, 1, cv::NORM_MINMAX, -1, Mat());
 
@@ -24,7 +24,7 @@ cv::Rect MatchingMethod(cv::Mat img, cv::Mat templ)
 	minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
 
 	/// 对于方法 SQDIFF 和 SQDIFF_NORMED, 越小的数值代表更高的匹配结果. 而对于其他方法, 数值越大匹配越好
-	if (match_method == CV_TM_SQDIFF || match_method == CV_TM_SQDIFF_NORMED)
+	if (match_method == cv::TM_SQDIFF || match_method == cv::TM_SQDIFF_NORMED)
 	{
 		matchLoc = minLoc;
 	}
@@ -125,8 +125,8 @@ void generate2DBBox(GTClassInfo info, cv::Point3d objCenterPos, double localYaw,
 			if (resizeRatio*templ.cols < 5 || resizeRatio * templ.rows < 5)
 				resizeRatio = 1;
 			cv::resize(templ, templ, cv::Size(resizeRatio*templ.cols, resizeRatio*templ.rows));
-			cv::cvtColor(img, img, CV_BGR2GRAY);
-			cv::cvtColor(templ, templ, CV_BGR2GRAY);
+			cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
+			cv::cvtColor(templ, templ, cv::COLOR_BGR2GRAY);
 			cv::Rect enlargedRegion = cv::Rect(cornerp[0], cornerp[2]);
 
 			if (isValidROI(enlargedRegion, img.size()))

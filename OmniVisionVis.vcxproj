@@ -28,13 +28,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\lib\opencv3\build\x64\vc12\lib;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;C:\Program Files\Point Grey Research\Ladybug\lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;D:\SDK\OpenCV\opencv401\build\include\;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SDK\OpenCV\opencv401\build\x64\vc15\lib;D:\SDK\Ladybug\lib64;C:\Program Files\Point Grey Research\Ladybug\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\lib\opencv3\build\x64\vc12\lib;D:\SDK\OpenCV\3.2.0_tbb_VS15\install\x64\vc15\lib;D:\SDK\Ladybug\lib64;C:\Program Files\Point Grey Research\Ladybug\lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files\Point Grey Research\Ladybug\include;C:\lib\opencv3\build\include;D:\SDK\OpenCV\opencv401\build\include;D:\SDK\Ladybug\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SDK\OpenCV\opencv401\build\x64\vc15\lib;D:\SDK\Ladybug\lib64;C:\Program Files\Point Grey Research\Ladybug\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,14 +131,9 @@
     <ClCompile Include="Flea2\flea2reader.cpp" />
     <ClCompile Include="getVeloPosFromImage.cpp" />
     <ClCompile Include="GPS\gps.cpp" />
-    <ClCompile Include="GTLabel.cpp" />
     <ClCompile Include="imageShifter.cpp" />
-    <ClCompile Include="Label\GTClassSizeInfo\GTClassSizeInfo.cpp" />
-    <ClCompile Include="Label\Labeler\Labeler.cpp" />
-    <ClCompile Include="Label\Recorder\Recorder.cpp" />
-    <ClCompile Include="Label\Tracker_KCF\fhog.cpp" />
-    <ClCompile Include="Label\Tracker_KCF\kcftracker.cpp" />
     <ClCompile Include="LadybugImages\LadybugImages.cpp" />
+    <ClCompile Include="LadybugMask\LadybugMask.cpp" />
     <ClCompile Include="LadybugPGR\LoadLadyBugPgr.cpp" />
     <ClCompile Include="LadybugVideo\LadybugVideo.cpp" />
     <ClCompile Include="LMS\urg.cpp" />
@@ -146,45 +141,47 @@
     <ClCompile Include="misc.cpp" />
     <ClCompile Include="OmniVision.cpp" />
     <ClCompile Include="Sensors\sensor.cpp" />
+    <ClCompile Include="TrackedObj\trackedObj.cpp" />
     <ClCompile Include="Transform_fang\Flea2\CAL_TRAN.cpp" />
     <ClCompile Include="Transform_fang\Flea2\MyCalib.cpp" />
     <ClCompile Include="Transform_fang\GPS\coordinateconvertion.cpp" />
     <ClCompile Include="Transform_fang\transform_fang.cpp" />
+    <ClCompile Include="Velodyne\extrinsic\veloextrinsic.cpp" />
+    <ClCompile Include="Velodyne\interface_zhao\velo_dsvl.cpp" />
+    <ClCompile Include="Velodyne\intrinsic\tinyxml2.cpp" />
+    <ClCompile Include="Velodyne\intrinsic\velointrinsic.cpp" />
     <ClCompile Include="Velodyne\velodynecalibinterface.cpp" />
     <ClCompile Include="Velodyne\velodynedatainterface.cpp" />
+    <ClCompile Include="Velodyne\veloxmlcalibinterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define_zhao.h" />
     <ClInclude Include="Flea2\flea2reader.h" />
     <ClInclude Include="getVeloPosFromImage.h" />
     <ClInclude Include="GPS\gps.h" />
-    <ClInclude Include="GTLabel.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="imageShifter.h" />
-    <ClInclude Include="Label\GTClassSizeInfo\GTClassSizeInfo.h" />
-    <ClInclude Include="Label\Labeler\Labeler.h" />
-    <ClInclude Include="Label\Recorder\Recorder.h" />
-    <ClInclude Include="Label\Tracker_KCF\ffttools.hpp" />
-    <ClInclude Include="Label\Tracker_KCF\fhog.hpp" />
-    <ClInclude Include="Label\Tracker_KCF\kcftracker.hpp" />
-    <ClInclude Include="Label\Tracker_KCF\labdata.hpp" />
-    <ClInclude Include="Label\Tracker_KCF\recttools.hpp" />
-    <ClInclude Include="Label\Tracker_KCF\tracker.h" />
     <ClInclude Include="LadybugImages\LadybugImages.h" />
+    <ClInclude Include="LadybugMask\LadybugMask.h" />
     <ClInclude Include="LadybugPGR\LoadLadyBugPgr.h" />
     <ClInclude Include="LadybugVideo\LadybugVideo.h" />
     <ClInclude Include="LMS\urg.h" />
     <ClInclude Include="misc.h" />
     <ClInclude Include="OmniVision.h" />
     <ClInclude Include="Sensors\sensor.h" />
+    <ClInclude Include="TrackedObj\trackedObj.h" />
     <ClInclude Include="Transform_fang\Flea2\CAL_MAIN.H" />
     <ClInclude Include="Transform_fang\GPS\coordinateconvertion.h" />
     <ClInclude Include="Transform_fang\transform_fang.h" />
+    <ClInclude Include="Velodyne\extrinsic\veloextrinsic.h" />
+    <ClInclude Include="Velodyne\interface_zhao\velo_dsvl.h" />
+    <ClInclude Include="Velodyne\intrinsic\tinyxml2.h" />
+    <ClInclude Include="Velodyne\intrinsic\velointrinsic.h" />
     <ClInclude Include="Velodyne\velodynecalibinterface.h" />
     <ClInclude Include="Velodyne\velodynedatainterface.h" />
+    <ClInclude Include="Velodyne\veloxmlcalibinterface.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\Kun\AppData\Local\Temp\报告20180807-2121.diagsession" />
     <None Include="config.yml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

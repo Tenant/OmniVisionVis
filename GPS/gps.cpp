@@ -270,7 +270,8 @@ GPSData GPSReader::getNearestPosition(const long long time)
 	return (*position.rbegin());
 */
 	auto lower = std::lower_bound(lastSearchPosition, position.end(), *position.rbegin(), [](GPSData a, GPSData b) -> bool { return a.timestamp < b.timestamp; });
-	return (*lower);
+	lastSearchPosition = lower;
+	return (*lastSearchPosition);
 }
 
 GPSData GPSReader::getInterpolatedPosition(const long long time)//这个函数没有优化效率

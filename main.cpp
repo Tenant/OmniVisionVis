@@ -17,20 +17,10 @@ int main()
 		//omni.testImageP2VehicleP();
 		//omni.showLMS();
 		omni.showVelo();
-		omni.showSavedLabel();
 
-		if (omni._refineStep == 0)
-			omni.label();
-		else if (omni._refineStep == 1)
-			omni.refineMonoLabel();
-		else if (omni._refineStep == 2)
-			omni.addMissingGlobalBVLabel();
-		else if (omni._refineStep == 3)
-			omni.refineGlobalBVLabel();
-
-		omni.keyborad();
+		if (!omni.keyborad())
+			break;
 	}
 	omni.release();
 	return 0;
 }
-
