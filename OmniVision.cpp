@@ -82,34 +82,6 @@ bool OmniVision::init()
 
 bool OmniVision::getData()
 {
-	int activePriSensorID;//当前时间戳最新的主传感器
-	activePriSensorID = 0;//当前时间戳最新的主传感器
-	if (!_priSensors[activePriSensorID]->getTime(_currentTime))//读取0号传感器的当前时间
-		return false;//这种情况就直接去掉吧...
-
-	do
-	{
-		for (int i = 1; i < _priSensors.size(); i++)
-		{
-			long long t;
-			if (_priSensors[i]->getTime(t))
-			{
-				if (t < _currentTime)//得到最慢的那个传感器id
-				{
-					_currentTime = t;
-					activePriSensorID = i;
-				}
-			}
-		}
-
-		if (!_priSensors[activePriSensorID]->grabNextData())//最慢的传感器读取一帧新数据
-			return false;
-
-		if (!_priSensors[activePriSensorID]->getTime(_currentTime))//读取0号传感器的当前时间
-			return false;//这种情况就直接去掉吧...		
-		std::cout << _currentTime << std::endl;
-	} while (_currentTime < _startTime);
-
 	for (auto s : _subSensors)
 		if (!s->grabData(_currentTime))
 			return false;
@@ -634,6 +606,68 @@ void OmniVision::showMap()
 
 void OmniVision::keyborad()
 {
+	char keyboard = cv::waitKey(0);
+	
+	switch (keyboard) {
+	case 'o':
+	case 'O':
+		int activePriSensorID;
+		activePriSensorID = 0;
+		if (!_priSensors[activePriSensorID]->getTime(_currentTime))//读取0号传感器的当前时间
+			break;
+		for (int i = 1; i < _priSensors.size(); i++)
+		{
+			long long t;
+			if (_priSensors[i]->getTime(t))
+			{
+				if (t > _currentTime)
+				{
+					_currentTime = t;
+					activePriSensorID = i;
+				}
+			}
+		}
+		if (!_priSensors[activePriSensorID]->grapPreviousData())
+			break;
+		if (!_priSensors[activePriSensorID]->getTime(_currentTime))
+			break;
+		std::cout << "Going backward one step to timestamp " <<_currentTime << std::endl;
+		break;
+	default:
+		activePriSensorID = 0;//当前时间戳最新的主传感器
+		if (!_priSensors[activePriSensorID]->getTime(_currentTime))//读取0号传感器的当前时间
+			break;
+
+		// find the earliest timestamp among primary sensors and compare with current time, if smaller, pop
+		do
+		{
+			// 1.1 得到最慢的那个传感器id
+			for (int i = 1; i < _priSensors.size(); i++)
+			{
+				long long t;
+				if (_priSensors[i]->getTime(t))
+				{
+					if (t < _currentTime)
+					{
+						_currentTime = t;
+						activePriSensorID = i;
+					}
+				}
+			}
+
+			// 1.2 最慢的传感器读取一帧新数据
+			if (!_priSensors[activePriSensorID]->grabNextData())
+				break;
+
+			// 1.3 读取0号传感器的当前时间
+			if (!_priSensors[activePriSensorID]->getTime(_currentTime))
+				break;
+
+			std::cout << _currentTime << std::endl;
+		} while (_currentTime < _startTime);
+	}
+	
+/*
 #if isLabel
 	return;
 #endif
@@ -644,6 +678,7 @@ void OmniVision::keyborad()
 		cv::waitKey();
 	else if (keyboard == 's' || keyboard == 'S')
 		ModifyManually();
+*/
 }
 
 void OmniVision::release()

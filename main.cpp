@@ -45,8 +45,6 @@ int main()
 
 	while (omni.getData())
 	{
-		//omni.testImageP2VehicleP();
-		//omni.showLMS();
 		omni.showVelo();
 		omni.showSavedLabel();
 

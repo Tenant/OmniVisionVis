@@ -31,6 +31,7 @@ public:
 	Flea2Reader() {};//为了当参数传入
 	virtual bool init(const std::string& path);
 	virtual bool grabData(const long long t);
+	virtual bool grapPreviousData();
 	virtual bool grabNextData();
 	virtual bool getTime(long long& t);
 	const Flea2Data& getCurrentData();

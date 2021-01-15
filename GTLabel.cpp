@@ -81,20 +81,11 @@ void GTLabel::refineSavedGT_mono(Flea2Reader& flea2, GPSReader& gps, Flea2Data& 
 	int saved_gt_index;
 	OneGroundTruth onegt;
 	bool isDeleted;
-	cv::Mat monoData_img = monoData.img.clone();
-	cv::Mat _HSV;
-	vector<Mat> hsvSplit;
 	switch (key)
 	{
 	case 'r':
 	case 'R':
-		//转换为HSV格式，对V分量进行均衡化
-		cvtColor(monoData_img, _HSV, cv::COLOR_BGR2HSV);
-		split(_HSV, hsvSplit);
-		equalizeHist(hsvSplit[2], hsvSplit[2]);
-		merge(hsvSplit, _HSV);
-		cvtColor(_HSV, monoData_img, cv::COLOR_HSV2BGR);
-		labeler.label(tracker.roi, monoData_img, winNameMono);
+		labeler.label(tracker.roi, monoData.img, winNameMono);
 		tracker.init(tracker.roi, monoData.img);
 		//break; r就自然要修改
 	case 'g':
@@ -125,7 +116,7 @@ void GTLabel::refineSavedGT_mono(Flea2Reader& flea2, GPSReader& gps, Flea2Data& 
 	case 'd':
 	case 'D':
 		isDeleted = recorder.erase('C', uid, monoData.timestamp);
-		//recorder.save(outputFile);
+		recorder.save(outputFile);
 		break;
 	default:
 		break;

@@ -187,6 +187,11 @@ bool VelodyneReader::init(const std::string & path)
 	return true;
 }*/
 
+bool VelodyneReader::grapPreviousData() {
+	velodyne_file.seekg(-1264, std::ios::cur);
+	return grabNextData();
+}
+
 bool VelodyneReader::grabNextData()
 {
 	currentData.timestamps_gps.clear();

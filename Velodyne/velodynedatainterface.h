@@ -40,6 +40,7 @@ public:
 	virtual bool init(const std::string& path);
 	//virtual bool getData(int frame, VelodyneData & data);
 	//virtual bool getData(const SensorData& dt, VelodyneData & data);
+	virtual bool grapPreviousData();
 	virtual bool grabNextData();
 	virtual bool getTime(long long& t);
 	const VelodyneData& getCurrentData();

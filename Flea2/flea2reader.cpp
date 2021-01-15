@@ -78,6 +78,14 @@ bool Flea2Reader::grabData(const long long t)
 	return false;
 }
 
+bool Flea2Reader::grapPreviousData()
+{
+	--_curIndex;
+	currentData.timestamp = timestamps[_curIndex];
+	currentData.filename = config.path + imgFilenames[_curIndex];
+	return true;
+}
+
 bool Flea2Reader::grabNextData()
 {
 	++_curIndex;
