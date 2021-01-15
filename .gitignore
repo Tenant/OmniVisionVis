@@ -332,8 +332,6 @@ ASALocalRun/
 .localhistory/
 
 #my files(gt, config)
-*.yml
 *.csv
 *.avi
 *.cal
-*.vcxproj

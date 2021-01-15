@@ -87,7 +87,7 @@ namespace fang
 			// start to select the bounding box
 		case cv::EVENT_LBUTTONDOWN:
 			data->isDrawing = true;
-			data->box = cv::Rect(x, y, 0, 0);
+			data->box = cvRect(x, y, 0, 0);
 			data->center = Point2f((float)x, (float)y);
 			break;
 
@@ -162,7 +162,7 @@ namespace fang
 		// end selection process on SPACE (32) or ENTER (13)
 		while (!(key == 32 || key == 13)){
 			// select the object
-			cv::setMouseCallback(windowName, mouseHandler, (void *)&selectorParams);
+			setMouseCallback(windowName, mouseHandler, (void *)&selectorParams);
 
 			// fine tuning bbox
 			switch (key)
@@ -523,6 +523,7 @@ namespace fang
 		visualROI = cutValidROI(selectorParams.box, canvas_pano.size());
 		// show the image and give feedback to user
 		imshow(winNamePano + "_extra", canvas_pano(visualROI));
+
 		cv::waitKey();
 		// copy the data, rectangle should be drawn in the fresh image
 		selectorParams.image = canvas_pano(visualROI).clone();
@@ -680,6 +681,7 @@ namespace fang
 			// show the image bouding box
 			cv::imshow(winNamePano + "_extra", selectorParams.image);
 
+
 			// reset the image
 			selectorParams.image = canvas_pano(visualROI).clone();
 			selectorParams.canvas_mono = canvas_mono.clone();
@@ -695,6 +697,10 @@ namespace fang
 		roi.y += visualROI.y;
 		yaw = selectorParams.yaw;
 		//return selectorParams.box;
+#ifndef DEBUG_VIS
+		std::string pano_extra = winNamePano + "_extra";
+		cvDestroyWindow(pano_extra.c_str());
+#endif
 	}
 
 	ROISelector _selector;

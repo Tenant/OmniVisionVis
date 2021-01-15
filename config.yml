@@ -1,38 +1,20 @@
 %YAML:1.0
-PGRFilename: "K:/LabData/20181121campus/LadybugRaw/ladybug_12193151_20181121_133353-000000.pgr"
-velodyneFilename: "D:/LabData/20181121/2018-11-21-13-33-58.dsvl"
-#velodyneFilename:"K:/LabData/20181121campus/2018-11-21-13-33-58.pcap"
-#velodyneFilename:"K:/LabData/kyxz2018/2018Eval/DataSplitPcap/test.pcap"
+PGRFilename: "E:/KYXZ2020/G/data/data_20201011/data-1/ladybug_12193151_20201011_111126-000000.pgr"
+velodyneFilename: "E:/KYXZ2020/G/data/data_20201011/data-1/HDL32.pcap"
+flea2Path: "E:/KYXZ2020/G/data/data_20201011/data-1/Camera/"
+lmsFilename: "E:/KYXZ2020/G/data/data_20201011/data-1/URG.lms"
+gpsFilename: "E:/KYXZ2020/G/data/data_20201011/data-1/GPS.csv"
+imuFilename: "E:/KYXZ2020/G/data/data_20201011/data-1/IMU.csv"
 
-MaskRootPath: "F:/results/"
-MaskTimeFilename: "video0.log"
-MaskMaskPrefix: "test_mask"
-MaskInfoPrefix: "test_result"
-MaskMaskPostfix: "_0.png"
-MaskInfoPostfix: "_0.txt"
-#MaskRootPath: "F:/campus00_mask/"
-#MaskTimeFilename: "video0.log"
-#MaskMaskPrefix: "test_mask"
-#MaskInfoPrefix: "test_result"
-#MaskMaskPostfix: ".png"
-#MaskInfoPostfix: ".txt"
+# 参数文件路径
+veloInstrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-HDL32-I.txt"
+veloExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-HDL32-E.txt"
+lmsExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-Laser.txt"
+ladybugCalibFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-001-Ladybug.txt"
+flea2CalibFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-Camera.camera"
+flea2ExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-Laser.txt"
+gpsExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-GPS.txt"
 
-flea2Path: "K:/LabData/kyxz2018/2018Eval/Data/flea2/"
-lmsFilename: "K:/LabData/kyxz2018/2018Eval/Data/2018-09-14-15-27-49.lms"
-gpsFilename: "K:/LabData/kyxz2018/2018Eval/Data/gpslog2018-09-14-15-27-50.log-GPS.csv"
-imuFilename: "K:/LabData/kyxz2018/2018Eval/Data/gpslog2018-09-14-15-27-50.log-IMU.csv"
-
-veloInstrinsicParamsFilename: "K:/LabData/kyxz2018/CalibParams/HDL-32.xml"
-#veloInstrinsicParamsFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-HDL32-I.txt"
-veloExtrinsicParamsFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-HDL32-E.txt"
-lmsExtrinsicParamsFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-Laser.txt"
-ladybugCalibFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-Ladybug.txt"
-flea2CalibFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-Camera-20181111.camera"
-#flea2CalibFilename: "K:/LabData/kyxz2018/2018Eval/CalibParamstest_ex.camera"
-flea2ExtrinsicParamsFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-Laser.txt"
-gpsExtrinsicParamsFilename: "K:/LabData/kyxz2018/CalibParams/Sampledata-001-GPS.txt"
-
-#生成目标文件
 gtFile: "gt.csv"
 
 terror_const: 0
@@ -42,25 +24,20 @@ isLMSReverse: 1
 gpsMethod: "GPS_NEAREST"
 #gpsMethod: "GPS_INTERPOLATED"
 
-#h1 220 (uid 0)
-#h2 260 (uid 2)
-#h3 1150 (uid 6)
-#h4 1600 (uid 8)
-#h5 440 (uid 10)
-#b1 invisible
-#b2 400 (uid 12)
-#b3 800 (uid 4)
-#skipFrames: 0
-#startTime: "0"
-startTime: "48915871"
-responseTime: 0
+#v1 40293263 (uid 0)
+#h1 40370525 (uid 1)
+
+useBGR: 1
+
+startTime: "40324487"
+responseTime: 10
 
 refineStep: 0
 refineUID: 0
-refineObjClass: 'B'
+refineObjClass: 'H'
 
-minValidVeloHeight: 0.2
-maxValidVeloHeight: 2.0
+minValidVeloHeight: 0.0
+maxValidVeloHeight: 1.0
 veloColor: 0
 
 minImageVisibleHeight: 25

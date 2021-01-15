@@ -164,15 +164,12 @@ bool GPSReader::init(const std::string& configfile)
 		gpsFile.close();
 		imuFile.close();
 	}
-	lastSearchPosition = position.begin();
 	return true;
 }
 
 bool GPSReader::grabData(const long long t)
 {
 	prevData = currentData;
-	if (t < (*lastSearchPosition).timestamp)
-		lastSearchPosition = position.begin();
 	if (config.method == GPS_NEAREST)
 	{
 		currentData = getNearestPosition(t);
@@ -260,7 +257,7 @@ GPSData GPSReader::getNearestPosition(const long long time)
 		return (*position.begin());
 	if (time >(position[position.size()-2]).timestamp)//因为下面要对比it和(it+1)
 		return (*position.rbegin()); 
-/*	for (auto it = position.begin(); it != position.end(); it++)
+	for (auto it = position.begin(); it != position.end(); it++)
 	{
 		if ((*it).timestamp <= time && time < (*(it + 1)).timestamp)
 		{
@@ -268,13 +265,9 @@ GPSData GPSReader::getNearestPosition(const long long time)
 		}
 	}
 	return (*position.rbegin());
-*/
-	auto lower = std::lower_bound(lastSearchPosition, position.end(), *position.rbegin(), [](GPSData a, GPSData b) -> bool { return a.timestamp < b.timestamp; });
-	lastSearchPosition = lower;
-	return (*lastSearchPosition);
 }
 
-GPSData GPSReader::getInterpolatedPosition(const long long time)//这个函数没有优化效率
+GPSData GPSReader::getInterpolatedPosition(const long long time)
 {
 	if (time < (*position.begin()).timestamp)
 		return (*position.begin());

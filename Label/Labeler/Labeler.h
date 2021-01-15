@@ -1,5 +1,4 @@
 #include "../../header.h"
-#include "opencv2/highgui/highgui.hpp"
 
 #include "../../LadybugPGR/LoadLadyBugPgr.h"
 #include "../../Flea2/flea2reader.h"

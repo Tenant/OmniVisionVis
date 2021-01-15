@@ -2,7 +2,7 @@
 #include <iomanip>
 #include "Label/Labeler/Labeler.h"
 #include "Label/Recorder/Recorder.h"
-//#include "Label/Tracker_KCF/kcftracker.hpp"
+#include "Label/Tracker_KCF/kcftracker.hpp"
 
 #include "LadybugPGR/LoadLadyBugPgr.h"
 #include "Flea2/flea2reader.h"

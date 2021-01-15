@@ -1,4 +1,5 @@
 #include "Recorder.h"
+#include<windows.h>
 
 bool OneGroundTruth::decode(const string& inString)
 {
@@ -102,7 +103,7 @@ bool Recorder::load(const string& filename)
 	}
 	OneGroundTruth ogttmp;
 	string stmp;
-	int max_uid = -1;
+	int max_uid = 0;
 	while (!inputFile.eof())
 	{
 		getline(inputFile, stmp);
@@ -229,6 +230,14 @@ void Recorder::generateGTDuration(int curMaxUID)//生成起始时间终止时间,
 
 bool Recorder::save(const string& filename)
 {
+	int flag = MessageBox(GetForegroundWindow(), "是否保存数据？", "OmniVis", MB_YESNOCANCEL);
+	if (flag == IDNO) {
+		exit(0);
+	}
+	if (flag == IDCANCEL) {
+		return true;
+	}
+
 	int curMaxUID = 0;
 	for (auto gt : gts)
 	{
@@ -242,13 +251,7 @@ bool Recorder::save(const string& filename)
 	{
 		return false;
 	}
-	/*for (auto it : gts)
-	{
-		//if (it.needModify)
-		//	continue;
-		
-		outputFile << it.encode() << std::endl;
-	}*/ //序号忘记递增了
+
 	generateGTDuration(curMaxUID);
 	for (int i = 1; i <= gts.size(); i++)
 	{
@@ -261,8 +264,7 @@ bool Recorder::save(const string& filename)
 		outputFile << gts[i-1].encode() << std::endl;
 	}
 	outputFile.close();
-
-	printf("saved!\n");
+	exit(0);
 
 	return true;
 }

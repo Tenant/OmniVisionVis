@@ -16,7 +16,7 @@
 #include <string>
 using std::string;
 
-#define ResizeLadybugRadio 1
+#define ResizeLadybugRadio 2.5
 #define isRectifyNeeded 0
 
 class LadybugData : public SensorData
@@ -74,8 +74,7 @@ public:
 	void VehicleP2ImageP(const cv::Point3d & in, cv::Point2i &out);
 	//void ImageP2VehicleP(const cv::Point2i & in, cv::Point3d &out, double distance);
 private:
-	//const cv::Rect _oriROI = cv::Rect(0 * ResizeLadybugRadio, (512 - 64 - 64) * ResizeLadybugRadio, 2048 * ResizeLadybugRadio, 256 * ResizeLadybugRadio);
-	const cv::Rect _oriROI = cv::Rect(0 * ResizeLadybugRadio, (512 - 256) * ResizeLadybugRadio, 2048 * ResizeLadybugRadio, 512 * ResizeLadybugRadio);
+	const cv::Rect _oriROI = cv::Rect(0 * ResizeLadybugRadio, (512-64-64) * ResizeLadybugRadio, 2048 * ResizeLadybugRadio, 256 * ResizeLadybugRadio);
 
 	CoordinateTrans trans;
 	LadybugData currentData;

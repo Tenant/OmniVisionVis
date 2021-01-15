@@ -10,10 +10,12 @@ bool GTLabel::init()
 	fs.release();
 
 
+#ifdef DEBUG_VIS
 	extraOutputFile.open(outputFile + std::string(".extra.csv"), std::ios::app);
 	if (!extraOutputFile.is_open())
 		return false;
 	extraOutputFile << "ResizeLadybugRadio: " << ResizeLadybugRadio << std::endl;
+#endif
 
 	auto tt = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 	struct tm* ptm = localtime(&tt);
@@ -21,7 +23,9 @@ bool GTLabel::init()
 	sprintf(timestr, "%d-%02d-%02d-%02d-%02d-%02d",
 		(int)ptm->tm_year + 1900, (int)ptm->tm_mon + 1, (int)ptm->tm_mday,
 		(int)ptm->tm_hour, (int)ptm->tm_min, (int)ptm->tm_sec);
+#ifdef DEBUG_VIS
 	extraOutputFile << "Time: " << timestr << std::endl;
+#endif
 
 	if (!recorder.load(outputFile))
 	{
@@ -105,7 +109,7 @@ void GTLabel::refineSavedGT_mono(Flea2Reader& flea2, GPSReader& gps, Flea2Data& 
 			tracker.uid = uid;
 			isAddNew = true;
 		}
-		//break; 修改了就顺道存了吧
+		break;
 	case 27:
 		recorder.save(outputFile);
 		break;
@@ -480,7 +484,7 @@ void GTLabel::interaction(accurateBBox abbox, double localYaw, Flea2Reader& flea
 	double oLength = _curInfo.length;
 
 	//可视化在pano
-	putText(canvas_pano, TrackingStatusNames[lastStatus], cv::Point(4, 20 * 2), cv::FONT_HERSHEY_SIMPLEX, 0.55, CV_RGB(255, 0, 0), 2);
+	putText(canvas_pano, "Press A to repaint", cv::Point(4, 20 * 3), cv::FONT_HERSHEY_SIMPLEX, 2, CV_RGB(255, 0, 0), 2);
 	rectangle(canvas_pano, tracker.roi, CV_RGB(0, 0, 255));
 	imshow(winNamePano, canvas_pano);
 
@@ -565,8 +569,8 @@ void GTLabel::labelSingleFrame(LadybugReader& ladybug, Flea2Reader& flea2, GPSDa
 	switch (tracker_flag)
 	{
 	case TS_INIT:
-		tracker.uid++;
-		curMaxUID = tracker.uid;
+		//tracker.uid++;
+		//curMaxUID = tracker.uid;
 		//和re-init的唯一区别就是这个uid++
 	case TS_REINIT:
 		double gYaw;
@@ -604,16 +608,18 @@ void GTLabel::labelSingleFrame(LadybugReader& ladybug, Flea2Reader& flea2, GPSDa
 
 	if (tracker_flag == TS_TRACKING)
 	{
+#ifdef DEBUG_VIS
 		extraOutputFile << ladybug.getCurrentData().timestamp << ','
 			<< tracker.uid << ','
 			<< tracker.roi.x << ',' << tracker.roi.y << ','
 			<< tracker.roi.width << ',' << tracker.roi.height << std::endl;
+#endif
 	}
 }
 
 void GTLabel::addNewGT(OneGroundTruth onegt)
 {
-	for (auto gt : recorder.gts)//效率有点低
+	for (auto gt : recorder.gts)
 	{
 		if ((gt.uid == onegt.uid)
 			&& (gt.sensorType == onegt.sensorType)

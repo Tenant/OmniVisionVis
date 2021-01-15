@@ -1,7 +1,6 @@
 #pragma once
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/videoio.hpp>
 
 #define CV_VERSION_STR CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
 
@@ -13,12 +12,14 @@
 #define TBB_EXT_STR ".lib"
 #endif
 
-/*#pragma comment(lib, "opencv_core"	CV_VERSION_STR CV_EXT_STR)
+//#define DEBUG_VIS
+
+#pragma comment(lib, "opencv_core"	CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_highgui"	CV_VERSION_STR CV_EXT_STR)
-#pragma comment(lib, "opencv_imgproc"	CV_VERSION_STR CV_EXT_STR)
+#pragma comment(lib, "opencv_cudaimgproc"	CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_imgcodecs"	CV_VERSION_STR CV_EXT_STR)
-#pragma comment(lib, "opencv_videoio" CV_VERSION_STR CV_EXT_STR)*/
-#pragma comment(lib, "opencv_world"	CV_VERSION_STR CV_EXT_STR)
+#pragma comment(lib, "opencv_videoio" CV_VERSION_STR CV_EXT_STR)
+//#pragma comment(lib, "opencv_world"	CV_VERSION_STR CV_EXT_STR)
 
 #define ymlGetVar(fs, xxx) fs[#xxx] >> xxx
 
