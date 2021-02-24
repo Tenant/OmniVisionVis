@@ -1,47 +1,42 @@
 %YAML:1.0
+
 # 数据存放路径
-PGRFilename: "E:/KYXZ2020/G/data/data_20201011/data-3/ladybug_12193151_20201011_122016-000000.pgr"
-velodyneFilename: "E:/KYXZ2020/G/data/data_20201011/data-3/HDL32.pcap"
-flea2Path: "E:/KYXZ2020/G/data/data_20201011/data-3/Camera/"
-lmsFilename: "E:/KYXZ2020/G/data/data_20201011/data-3/URG.lms"
-gpsFilename: "E:/KYXZ2020/G/data/data_20201011/data-3/GPS.csv"
-imuFilename: "E:/KYXZ2020/G/data/data_20201011/data-3/IMU.csv"
+PGRFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/ladybug_12193151_20180914_152750-000000.pgr"
+velodyneFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/2018-09-14-15-27-50.pcap"
+flea2Path: "F:/KYXZ2020/G/data/data_20180914/Raw-011/Camera/"
+lmsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/2018-09-14-15-27-49.lms"
+gpsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/gpslog2018-09-14-15-27-50.log-GPS.csv"
+imuFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/gpslog2018-09-14-15-27-50.log-IMU.csv"
 
 # 参数文件路径
-veloInstrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-HDL32-I.txt"
-veloExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-HDL32-E.txt"
-lmsExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-Laser.txt"
-ladybugCalibFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-001-Ladybug.txt"
-flea2CalibFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-Camera.camera"
-flea2ExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-Laser.txt"
-gpsExtrinsicParamsFilename: "E:/KYXZ2020/G/data/data_20201011/CalibParams/20201010-GPS.txt"
+veloInstrinsicParamsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/HDL32-I.txt"
+veloExtrinsicParamsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/HDL32-E.txt"
+lmsExtrinsicParamsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/Laser.txt"
+ladybugCalibFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/Ladybug.txt"
+flea2CalibFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/Camera.camera"
+flea2ExtrinsicParamsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/Laser.txt"
+gpsExtrinsicParamsFilename: "F:/KYXZ2020/G/data/data_20180914/Raw-011/CalibParams/GPS.txt"
+
 
 #生成目标文件
 gtFile: "gt.csv"
 
-terror_const: 0
-terror_linear: 0
+terror_const: 0.0
+terror_linear: 0.001403366795423015
+terror_time_ori: 55670219
 
 isLMSReverse: 1
 gpsMethod: "GPS_NEAREST"
 #gpsMethod: "GPS_INTERPOLATED"
 
-#h1 220 (uid 0)
-#h2 260 (uid 2)
-#h3 1150 (uid 6)
-#h4 1600 (uid 8)
-#h5 440 (uid 10)
-#b1 invisible
-#b2 400 (uid 12)
-#b3 800 (uid 4)
 #skipFrames: 0
-#startTime: "0"
-startTime: "0"
+#startTime: "57720847"
+startTime: "58600000"
 responseTime: 10
 
-useBGR: 1
+useBGR: 0
 
-refineStep: 1
+refineStep: 0
 refineUID: 0
 refineObjClass: 'V'
 

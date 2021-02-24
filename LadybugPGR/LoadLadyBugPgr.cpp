@@ -99,13 +99,10 @@ int LadybugReader::binarySearchbyTime(const long long t)
 	;
 }
 
-bool LadybugReader::grabData(const long long t)
+bool LadybugReader::grabData(const long long tt)
 {
-	//long long t = dt.timestamp;
-	//int errorCounter = 0;// dt.frameNum;
-	//int time_adjust = config.tError_beta + int(errorCounter*config.tError_alpha);//1600;
-	//t += time_adjust;
-
+	int time_adjust = config.tError_beta + int((tt - config.tError_time) * config.tError_alpha);
+	long long t = tt - time_adjust;
 	int num = cur;
 	if (num < 0)//||大于最大值
 	{
@@ -501,6 +498,7 @@ bool LadybugConfig::init(const std::string & path)
 	fs["PGRFilename"] >> pgrFilename;
 	fs["terror_linear"] >> tError_alpha;
 	fs["terror_const"] >> tError_beta;
+	fs["terror_time_ori"] >> tError_time;
 	fs["ladybugCalibFilename"] >> calibFilename;
 	fs.release();
 	return true;

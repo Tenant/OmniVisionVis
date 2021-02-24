@@ -34,6 +34,7 @@ public:
 	std::string calibFilename;
 	double tError_alpha;
 	double tError_beta;
+	int tError_time;
 };
 
 class LadybugReader : public SensorReader
