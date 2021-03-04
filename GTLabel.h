@@ -53,7 +53,7 @@ public:
 	//int getNewUID() { return curMaxUID++; };
 
 	cv::Mat _verification;//½Ó¿ÚÐÞ¸Ä
-private:
+public:
 	int _responseTime;//waitkey time
 	void interaction(accurateBBox abbox, double localYaw, Flea2Reader& flea2, cv::Mat& canvas_pano, cv::Mat& canvas_mono, cv::Mat& canvas_bv, TrackingStatus& lastStatus);
 

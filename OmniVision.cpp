@@ -130,6 +130,7 @@ bool OmniVision::getData()
 	
 	_panoData = _ladybug.getCurrentData();
 	std::cout << " | pano: " << _panoData.timestamp;
+	_gtLabeler.recorder._currentTime = _currentTime;
 	
 	std::cout << std::endl;
 
@@ -294,8 +295,10 @@ void OmniVision::showVelo()
 #endif
 		if (_refineStep == 0)//只有在粗标注才要
 		{
-			if (isInImage(lp, _pano_velo))
+			if (isInImage(lp, _pano_velo)) {
 				_pano_velo.at<cv::Vec3b>(lp) = color; //cv::Vec3b(255, 255, 255);// vp.color
+				//circle(_pano_velo, lp, 3, color, 2);
+			}
 		}
 
 		cv::Point2i bvp(_mapSize / 2 + vp.x / _pixelSize, _mapSize / 2 - vp.y / _pixelSize);
@@ -306,7 +309,11 @@ void OmniVision::showVelo()
 		cv::Point2i fp;
 		_flea2.VehicleP2ImageP(vp, fp);
 		if (isInImage(fp, _mono_velo))
+		{
 			_mono_velo.at<cv::Vec3b>(fp) = color;
+			//circle(_mono_velo, fp, 3, color, 2);
+
+		}
 	}
 
 	if (!_gtLabeler.isTrackerInit())//现在暂时用这个...

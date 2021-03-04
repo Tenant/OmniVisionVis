@@ -64,6 +64,7 @@ public:
 	void setOneSavedGT(OneGroundTruth onegt, int index);
 
 	vector<OneGroundTruth> gts;//唉...算了放出来吧
+	long long _currentTime;
 private:
 	void generateGTDuration(int curMaxUID);//生成起始时间终止时间
 

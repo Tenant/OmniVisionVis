@@ -230,14 +230,6 @@ void Recorder::generateGTDuration(int curMaxUID)//生成起始时间终止时间,
 
 bool Recorder::save(const string& filename)
 {
-	int flag = MessageBox(GetForegroundWindow(), "是否保存数据？", "OmniVis", MB_YESNOCANCEL);
-	if (flag == IDNO) {
-		exit(0);
-	}
-	if (flag == IDCANCEL) {
-		return true;
-	}
-
 	int curMaxUID = 0;
 	for (auto gt : gts)
 	{
@@ -264,8 +256,13 @@ bool Recorder::save(const string& filename)
 		outputFile << gts[i-1].encode() << std::endl;
 	}
 	outputFile.close();
-	exit(0);
 
+	std::cout << "save successfully" << std::endl;
+	FILE *fp = fopen("debug.log", "w");
+	fprintf(fp, "上次保存时时间戳位：%d\n", _currentTime);
+	fclose(fp);
+	MessageBox(NULL, "保存成功，本次保存的时间戳已记录到dubug.log文件", "Save Successfully", MB_OK);
+	
 	return true;
 }
 
