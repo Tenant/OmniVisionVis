@@ -391,6 +391,10 @@ unsigned long int LadybugReader::getPgrTime()
 
 	struct tm * ptm = gmtime(&t);
 	time = (((ptm->tm_hour + 8) * 60 + ptm->tm_min) * 60 + ptm->tm_sec) * 1000 + millisecond / 1000;
+	int whole_day = 24 * 3600 * 1000;
+	if (time >= whole_day) {
+		time -= whole_day;
+	}
 	//time = time + long(1.05 * 1000);
 	time = time + long(-_timeDelay * 1000);
 	return time;
